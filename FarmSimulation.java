@@ -24,29 +24,30 @@ class Farm {
         fields.put("CHICKEN", new LinkedList<>());
     }
 
+    // starts farm simulation and create/starts threads for farmers, buyers and delivery
     public void runSimulation() {
-        for (int i = 1; i <= NUM_FARMERS; i++) {
+        for (int i = 1; i <= NUM_FARMERS; i++) { // start farm threads
             new Thread(new Farmer(i, this)).start();
         }
-        for (int i = 1; i <= NUM_BUYERS; i++) {
+        for (int i = 1; i <= NUM_BUYERS; i++) { // start buyer threads
             new Thread(new Buyer(i, this)).start();
         }
-        new Thread(this::deliverAnimals).start();
+        new Thread(this::deliverAnimals).start(); //start animal delivery thread, without creating a new class/invoking it
     }
 
     private void deliverAnimals() {
-        while (true) {
+        while (true) { // infinite loop
             sleep(100);
-            lock.lock();
+            lock.lock(); // acquire lock
             try {
                 if (enclosure.size() < ENCLOSURE_CAPACITY) {
                     String animal = getRandomAnimal();
                     enclosure.add(animal);
                     System.out.printf("[TICK %d] Delivery added %s to enclosure.%n", tick, animal);
-                    notEmpty.signalAll();
+                    notEmpty.signalAll(); // signal the waiting threads
                 }
             } finally {
-                lock.unlock();
+                lock.unlock(); // release lock even 
             }
         }
     }
@@ -55,9 +56,9 @@ class Farm {
         lock.lock();
         try {
             while (enclosure.isEmpty()) {
-                notEmpty.await();
+                notEmpty.await(); 
             }
-            String animal = enclosure.poll();
+            String animal = enclosure.poll(); // farmer take animal from front of queue using poll()
             System.out.printf("[TICK %d] [FARMER-%d] Taking %s from enclosure...%n", tick, farmerId, animal);
             return animal;
         } catch (InterruptedException e) {
@@ -70,7 +71,7 @@ class Farm {
     public void stockAnimal(int farmerId, String animal) {
         lock.lock();
         try {
-            Queue<String> field = fields.get(animal);
+            Queue<String> field = fields.get(animal); // get the field for the animal
             if (field != null && field.size() < FIELD_CAPACITY) {
                 System.out.printf("[TICK %d] [FARMER-%d] Moving %s to field...%n", tick, farmerId, animal);
                 sleep(10);
