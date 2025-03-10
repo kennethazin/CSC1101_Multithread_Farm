@@ -11,7 +11,7 @@ public class FarmSimulation {
 class Farm {
     private static final int TICK_DURATION = 10; // ms per tick
     private static final int ENCLOSURE_CAPACITY = 50;
-    private static final int FIELD_CAPACITY = 20;
+    private static final int FIELD_CAPACITY = 10;
 
     private final int numFarmers;
     private final int numBuyers;
