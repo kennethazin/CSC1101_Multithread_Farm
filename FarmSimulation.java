@@ -21,7 +21,7 @@ class Farm {
     private final int breakDuration;
 
     private final Queue<String> enclosure = new LinkedList<>();
-    private final Map<String, FieldData> fields = new HashMap<>();
+    private final Map<String, Field> fields = new HashMap<>();
     private final Lock lock = new ReentrantLock(true);
     private final Condition notEmpty = lock.newCondition();
     private final Random random = new Random();
@@ -39,7 +39,7 @@ class Farm {
         for (String animalType : new String[] {"COW", "PIG", "SHEEP", "LLAMA", "CHICKEN"}) {
             Queue<String> queue = new LinkedList<>();
             Condition cond = lock.newCondition();
-            fields.put(animalType, new FieldData(queue, cond));
+            fields.put(animalType, new Field(queue, cond));
         }
     }
     // starts farm simulation and create/starts threads for farmers, buyers and delivery
@@ -95,13 +95,13 @@ class Farm {
     public void stockAnimal(int farmerId, String animal) {
         lock.lock();
         try {
-            FieldData fieldData = fields.get(animal);
-            if (fieldData != null && fieldData.animals.size() < FIELD_CAPACITY) {
+            Field field = fields.get(animal);
+            if (field != null && field.animals.size() < FIELD_CAPACITY) {
                 System.out.printf("[TICK %d] [FARMER-%d] Moving %s to field...%n", tick, farmerId, animal);
                 sleep(10);
-                fieldData.animals.add(animal);
+                field.animals.add(animal);
                 System.out.printf("[TICK %d] [FARMER-%d] Stocked 1 %s in Field (%s).%n", tick, farmerId, animal, animal);
-                fieldData.notEmptyCondition.signalAll(); // signal the waiting buyers
+                field.notEmptyCondition.signalAll(); // signal the waiting buyers
             }
         } finally {
             lock.unlock();
@@ -117,16 +117,16 @@ class Farm {
                     return;
                 }
                 String chosenField = animalTypes[random.nextInt(animalTypes.length)]; // choose a random field
-                FieldData fieldData = fields.get(chosenField);
+                Field field = fields.get(chosenField);
                 
                 System.out.printf("[TICK %d] [BUYER-%d] Attempting to buy an animal from Field (%s)...%n", tick, buyerId, chosenField);
                 
                 //if empty, wait specifically on this field's condition
-                while (fieldData.animals.isEmpty()) {
+                while (field.animals.isEmpty()) {
                     System.out.printf("[TICK %d] [BUYER-%d] Field (%s) is empty. Waiting...%n", tick, buyerId, chosenField);
-                    fieldData.notEmptyCondition.await();
+                    field.notEmptyCondition.await();
             }
-            String animal = fieldData.animals.poll();
+            String animal = field.animals.poll();
             System.out.printf("[TICK %d] [BUYER-%d] Purchased 1 %s.%n", tick, buyerId, animal);
             break;
             }
@@ -156,61 +156,3 @@ class Farm {
         }
     }
 }
-
-// Farmer class
-class Farmer implements Runnable {
-    private final int id;
-    private final Farm farm;
-    private int workTicks = 0;
-
-    public Farmer(int id, Farm farm) {
-        this.id = id;
-        this.farm = farm;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            String animal = farm.takeFromEnclosure(id);
-            if (animal != null) {
-                farm.stockAnimal(id, animal);
-                workTicks += 10;
-                if (workTicks >= farm.minBreakTicks) {
-                    farm.farmerBreak(id);
-                    workTicks = 0;
-                }
-            }
-        }
-    }
-}
-
-// Buyer class
-class Buyer implements Runnable {
-    private final int id;
-    private final Farm farm;
-
-    public Buyer(int id, Farm farm) {
-        this.id = id;
-        this.farm = farm;
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            farm.buyAnimal(id);
-            farm.sleep(100);
-        }
-    }
-}
-
-// Field Class
-class FieldData {
-    Queue<String> animals;
-    Condition notEmptyCondition;
-
-    FieldData(Queue<String> animals, Condition notEmptyCondition) {
-        this.animals = animals;
-        this.notEmptyCondition = notEmptyCondition;
-    }
-}
-
