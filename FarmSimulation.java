@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.concurrent.locks.*;
 
+// Farmer class
 class Farm {
     private static final int TICK_DURATION = 10; // ms per tick
     private static final int ENCLOSURE_CAPACITY = 50;
