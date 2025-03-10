@@ -1,6 +1,6 @@
-package entities;
-
 public class Animal {
+    public enum AnimalType { PIG, COW, SHEEP, LLAMA, CHICKEN }
+
     private final AnimalType type;
 
     public Animal(AnimalType type) {
