@@ -1,7 +1,12 @@
-// Cyrus
 import java.util.*;
 import java.util.concurrent.locks.*;
 
+public class FarmSimulation {
+    public static void main(String[] args) {
+        Farm farm = new Farm();
+        farm.runSimulation();
+    }
+}
 // Farmer class
 class Farm {
     private static final int TICK_DURATION = 10; // ms per tick
@@ -12,7 +17,7 @@ class Farm {
 
     private final Queue<String> enclosure = new LinkedList<>();
     private final Map<String, Queue<String>> fields = new HashMap<>();
-    private final Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock(true);
     private final Condition notEmpty = lock.newCondition();
     private final Random random = new Random();
     private int tick = 0;
@@ -42,7 +47,18 @@ class Farm {
             sleep(100);
             lock.lock(); // acquire lock
             try {
-                if (enclosure.size() < ENCLOSURE_CAPACITY) {
+                if (random.nextDouble() < 0.01) { // 1% probability
+                    for (int i = 0; i < 10; i++) {
+                        if (enclosure.size() < ENCLOSURE_CAPACITY) {
+                            String animal = getRandomAnimal();
+                            enclosure.add(animal);
+                            System.out.printf("[TICK %d] Delivery added %s to enclosure.%n", tick, animal);
+                        } else {
+                            break; // stop adding if enclosure is full
+                        }
+                    }
+                    notEmpty.signalAll(); // signal the waiting threads
+                } else if (enclosure.size() < ENCLOSURE_CAPACITY) {
                     String animal = getRandomAnimal();
                     enclosure.add(animal);
                     System.out.printf("[TICK %d] Delivery added %s to enclosure.%n", tick, animal);
@@ -88,11 +104,11 @@ class Farm {
     public void buyAnimal(int buyerId) {
         lock.lock();
         try {
-            String[] animalTypes = fields.keySet().toArray(new String[0]);
+            String[] animalTypes = fields.keySet().toArray(new String[0]); // retrieve keys (animal types) fro mfields map and convert to array
             if (animalTypes.length == 0) {
                 return;
             }
-            String chosenField = animalTypes[random.nextInt(animalTypes.length)];
+            String chosenField = animalTypes[random.nextInt(animalTypes.length)]; // choose a random field
             Queue<String> field = fields.get(chosenField);
             
             System.out.printf("[TICK %d] [BUYER-%d] Attempting to buy an animal from Field (%s)...%n", tick, buyerId, chosenField);
@@ -121,9 +137,3 @@ class Farm {
     }
 }
 
-public class FarmSimulation {
-    public static void main(String[] args) {
-        Farm farm = new Farm();
-        farm.runSimulation();
-    }
-}
