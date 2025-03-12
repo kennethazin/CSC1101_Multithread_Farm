@@ -28,7 +28,7 @@ class Farm {
     private int tick = 0;
 
     // Movement constants
-    private static final int BASE_MOVE_TIME = 10; // 10 ticks to move between locations
+    private static final int BASE_MOVE_TIME = 10; 
 
     public Farm(int numFarmers, int numBuyers, double deliveryProbability, int minBreakTicks, int maxBreakTicks, int breakDuration) {
         this.numFarmers = numFarmers;
@@ -38,18 +38,15 @@ class Farm {
         this.maxBreakTicks = maxBreakTicks;
         this.breakDuration = breakDuration;
         
-        // Initialize the animal types in enclosure
         for (String animalType : new String[] {"COW", "PIG", "SHEEP", "LLAMA", "CHICKEN"}) {
             enclosure.put(animalType, new LinkedList<>());
         }
         
-        // Initialize fields with animals
         for (String animalType : new String[] {"COW", "PIG", "SHEEP", "LLAMA", "CHICKEN"}) {
             Queue<String> queue = new LinkedList<>();
             Condition cond = lock.newCondition();
             fields.put(animalType, new Field(queue, cond, animalType));
             
-            // Start with 5 animals in each field
             for (int i = 0; i < 5; i++) {
                 queue.add(animalType);
             }
@@ -63,22 +60,19 @@ class Farm {
         for (int i = 1; i <= numBuyers; i++) { // start buyer threads
             new Thread(new Buyer(i, this)).start();
         }
-        new Thread(this::deliverAnimals).start(); //start animal delivery thread, without creating a new class/invoking it
+        new Thread(this::deliverAnimals).start(); // start delivery thread
     }
 
     private void deliverAnimals() {
-        while (true) { // infinite loop
-            sleep(100);
+        while (true) { 
+            sleep(100); 
             lock.lock(); // acquire lock
             try {
-                if (random.nextDouble() < deliveryProbability) { // configurable probability
+                if (random.nextDouble() < deliveryProbability) { 
                     // Create a random distribution of 10 animals
                     Map<String, Integer> animalCounts = generateRandomAnimalDistribution(10);
                     
-                    StringBuilder deliveryReport = new StringBuilder();
-                    deliveryReport.append(String.format("[TICK %d] Deposit_of_animals : ", tick));
-                    
-                    // Add animals to enclosure based on generated distribution
+                    String output = "";
                     for (Map.Entry<String, Integer> entry : animalCounts.entrySet()) {
                         String animalType = entry.getKey();
                         int count = entry.getValue();
@@ -88,11 +82,11 @@ class Farm {
                             for (int i = 0; i < count; i++) {
                                 animalQueue.add(animalType);
                             }
-                            deliveryReport.append(animalType.toLowerCase()).append("=").append(count).append(" ");
+                            output += animalType.toLowerCase() + "=" + count + " ";
                         }
                     }
                     
-                    System.out.println(deliveryReport.toString().trim());
+                    System.out.printf("%d Deposit_of_animals : %s\n", tick, output.trim());
                     notEmpty.signalAll(); // signal the waiting threads
                 } 
             } finally {
@@ -106,7 +100,7 @@ class Farm {
         String[] animalTypes = {"COW", "PIG", "SHEEP", "LLAMA", "CHICKEN"};
         Map<String, Integer> distribution = new HashMap<>();
         
-        // Initialize all animal types with 0
+        // Initialise all animal types with 0
         for (String type : animalTypes) {
             distribution.put(type, 0);
         }
@@ -120,13 +114,14 @@ class Farm {
         return distribution;
     }
 
-    // Take animals from enclosure - now returns a map of animal types and counts
     public Map<String, Integer> takeFromEnclosure(int farmerId) {
         Map<String, Integer> takenAnimals = new HashMap<>();
         lock.lock();
         try {
             // Wait until there's at least one animal in the enclosure
             boolean hasAnimals = false;
+            int waitStart = tick; // Track wait time
+            
             while (!hasAnimals) {
                 for (Queue<String> queue : enclosure.values()) {
                     if (!queue.isEmpty()) {
@@ -136,7 +131,7 @@ class Farm {
                 }
                 
                 if (!hasAnimals) {
-                    System.out.printf("[TICK %d] [FARMER-%d] Waiting for animals in enclosure...%n", tick, farmerId);
+                    System.out.printf("%d farmer=%d Waiting for animals in enclosure...\n", tick, farmerId);
                     notEmpty.await();
                     
                     // Check again after being signaled
@@ -150,11 +145,13 @@ class Farm {
                 }
             }
             
+            // Calculate waited ticks
+            int waitedTicks = tick - waitStart;
+            
             // Take up to 10 animals from the enclosure
             int totalTaken = 0;
-            StringBuilder takenReport = new StringBuilder();
-            takenReport.append(String.format("[TICK %d] [FARMER-%d] collected_animals : ", tick, farmerId));
             
+            String collectedReport = "";
             for (String animalType : new String[] {"COW", "PIG", "SHEEP", "LLAMA", "CHICKEN"}) {
                 Queue<String> queue = enclosure.get(animalType);
                 int count = 0;
@@ -167,7 +164,7 @@ class Farm {
                 
                 if (count > 0) {
                     takenAnimals.put(animalType, count);
-                    takenReport.append(animalType.toLowerCase()).append("=").append(count).append(" ");
+                    collectedReport += animalType.toLowerCase() + "=" + count + " ";
                 }
                 
                 if (totalTaken >= 10) {
@@ -176,7 +173,8 @@ class Farm {
             }
             
             if (totalTaken > 0) {
-                System.out.println(takenReport.toString().trim());
+                System.out.printf("%d farmer=%d collected_animals waited_ticks=%d: %s\n", 
+                    tick, farmerId, waitedTicks, collectedReport.trim());
             }
             
             return takenAnimals;
@@ -199,14 +197,14 @@ class Farm {
             totalAnimals += count;
         }
         
-        // Prioritize animals based on field status and buyer waiting
-        Map<String, Integer> prioritizedAnimals = prioritizeAnimalStocking(animals);
+        // Prioritise animals based on field status and buyer waiting
+        Map<String, Integer> prioritisedAnimals = prioritiseAnimalStocking(animals);
         
         // First move: simulate movement from enclosure to first field
         int currentLocation = 0; // 0 = enclosure, 1,2,3,4,5 = fields
         int remainingAnimals = totalAnimals;
         
-        for (Map.Entry<String, Integer> entry : prioritizedAnimals.entrySet()) {
+        for (Map.Entry<String, Integer> entry : prioritisedAnimals.entrySet()) {
             String animalType = entry.getKey();
             int count = entry.getValue();
             
@@ -220,8 +218,8 @@ class Farm {
             currentLocation = getFieldIndex(animalType) + 1;
             
             // Simulate movement
-            System.out.printf("[TICK %d] [FARMER-%d] Moving to field %s with %d animals (%d ticks)...%n",
-                    tick, farmerId, animalType, count, moveTime);
+            System.out.printf("%d farmer=%d moved_to_field=%s : %s=%d\n",
+                    tick, farmerId, animalType.toLowerCase(), animalType.toLowerCase(), count);
             sleep(moveTime);
             
             // Now attempt to stock the field
@@ -234,14 +232,13 @@ class Farm {
         // Return to enclosure
         if (currentLocation != 0) {
             int returnTime = BASE_MOVE_TIME;
-            System.out.printf("[TICK %d] [FARMER-%d] Returning to enclosure (%d ticks)...%n",
-                    tick, farmerId, returnTime);
+            System.out.printf("%d farmer=%d Returning to enclosure\n", tick, farmerId);
             sleep(returnTime);
         }
     }
 
-    // Method to prioritize which animals to stock first based on field status
-    private Map<String, Integer> prioritizeAnimalStocking(Map<String, Integer> animals) {
+    // Method to prioritise which animals to stock first based on field status
+    private Map<String, Integer> prioritiseAnimalStocking(Map<String, Integer> animals) {
         lock.lock();
         try {
             // Create a list of animal types sorted by priority
@@ -278,20 +275,20 @@ class Farm {
             fieldPriorities.sort((a, b) -> b.getValue() - a.getValue());
             
             // Create a new ordered map based on priority
-            Map<String, Integer> prioritizedAnimals = new LinkedHashMap<>();
+            Map<String, Integer> prioritisedAnimals = new LinkedHashMap<>();
             for (Map.Entry<String, Integer> entry : fieldPriorities) {
                 String animalType = entry.getKey();
-                prioritizedAnimals.put(animalType, animals.get(animalType));
+                prioritisedAnimals.put(animalType, animals.get(animalType));
             }
             
             // If any animals are left, add them at the end
             for (Map.Entry<String, Integer> entry : animals.entrySet()) {
-                if (!prioritizedAnimals.containsKey(entry.getKey())) {
-                    prioritizedAnimals.put(entry.getKey(), entry.getValue());
+                if (!prioritisedAnimals.containsKey(entry.getKey())) {
+                    prioritisedAnimals.put(entry.getKey(), entry.getValue());
                 }
             }
             
-            return prioritizedAnimals;
+            return prioritisedAnimals;
         } finally {
             lock.unlock();
         }
@@ -312,7 +309,7 @@ class Farm {
         try {
             Field field = fields.get(animalType);
             if (field != null) {
-                System.out.printf("[TICK %d] [FARMER-%d] began_stocking_field : %s=%d%n", 
+                System.out.printf("%d farmer=%d began_stocking_field : %s=%d\n", 
                     tick, farmerId, animalType.toLowerCase(), count);
                 
                 // Stock the animals, respecting field capacity
@@ -331,7 +328,7 @@ class Farm {
                     }
                 }
                 
-                System.out.printf("[TICK %d] [FARMER-%d] finished_stocking_field : %s=%d%n", 
+                System.out.printf("%d farmer=%d finished_stocking_field : %s=%d\n", 
                     tick, farmerId, animalType.toLowerCase(), stocked);
                 
                 // Signal waiting buyers
@@ -354,16 +351,16 @@ class Farm {
             String chosenField = animalTypes[random.nextInt(animalTypes.length)];
             Field field = fields.get(chosenField);
             
-            System.out.printf("[TICK %d] [BUYER-%d] Attempting to buy an animal from Field (%s)...%n", 
-                tick, buyerId, chosenField);
+            System.out.printf("%d buyer=%d Attempting to buy an animal from Field (%s)\n", 
+                tick, buyerId, chosenField.toLowerCase());
             
             // Track wait time for buyers
             int waitStart = tick;
             
             // Wait if field is empty
             while (field.animals.isEmpty()) {
-                System.out.printf("[TICK %d] [BUYER-%d] Field (%s) is empty. Waiting...%n", 
-                    tick, buyerId, chosenField);
+                System.out.printf("%d buyer=%d Field (%s) is empty. Waiting...\n", 
+                    tick, buyerId, chosenField.toLowerCase());
                 field.notEmptyCondition.await();
             }
             
@@ -374,7 +371,7 @@ class Farm {
             sleep(1);
             String animal = field.animals.poll();
             
-            System.out.printf("[TICK %d] [BUYER-%d] collected_from_field=%s waited_ticks=%d%n", 
+            System.out.printf("%d buyer=%d collected_from_field=%s waited_ticks=%d\n", 
                 tick, buyerId, chosenField.toLowerCase(), waitedTicks);
             
         } catch (InterruptedException e) {
@@ -386,7 +383,7 @@ class Farm {
 
     public void farmerBreak(int farmerId) {
         int breakTicks = random.nextInt(maxBreakTicks - minBreakTicks + 1) + minBreakTicks;
-        System.out.printf("[TICK %d] [FARMER-%d] Taking a break for %d ticks.%n", tick, farmerId, breakTicks);
+        System.out.printf("%d farmer=%d Taking a break for %d ticks\n", tick, farmerId, breakTicks);
         sleep(breakDuration);
     }
 
