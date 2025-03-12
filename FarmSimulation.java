@@ -187,112 +187,92 @@ class Farm {
     }
 
     public void stockAnimal(int farmerId, Map<String, Integer> animals) {
-        if (animals.isEmpty()) {
-            return;
-        }
-        
-        // Calculate total animals being moved
-        int totalAnimals = 0;
-        for (int count : animals.values()) {
-            totalAnimals += count;
-        }
-        
-        // Prioritise animals based on field status and buyer waiting
-        Map<String, Integer> prioritisedAnimals = prioritiseAnimalStocking(animals);
-        
-        // First move: simulate movement from enclosure to first field
-        int currentLocation = 0; // 0 = enclosure, 1,2,3,4,5 = fields
+        if (animals.isEmpty()) return;
+    
+        // Prioritize which fields to stock first
+        Map<String, Integer> prioritizedFields = prioritizeFieldsForStocking(animals);
+    
+        int totalAnimals = animals.values().stream().mapToInt(Integer::intValue).sum();
         int remainingAnimals = totalAnimals;
-        
-        for (Map.Entry<String, Integer> entry : prioritisedAnimals.entrySet()) {
+    
+        for (Map.Entry<String, Integer> entry : prioritizedFields.entrySet()) {
             String animalType = entry.getKey();
             int count = entry.getValue();
-            
+    
             if (count <= 0) continue;
-            
-            // Calculate move time: 
-            // BASE_MOVE_TIME (10) + 1 tick per animal being moved
+    
             int moveTime = BASE_MOVE_TIME + count;
-            
-            // Update current location
-            currentLocation = getFieldIndex(animalType) + 1;
-            
-            // Simulate movement
             System.out.printf("%d farmer=%d moved_to_field=%s : %s=%d\n",
                     tick, farmerId, animalType.toLowerCase(), animalType.toLowerCase(), count);
             sleep(moveTime);
-            
+    
             // Now attempt to stock the field
             stockField(farmerId, animalType, count);
-            
-            // Update remaining animals
+    
             remainingAnimals -= count;
         }
-        
+    
         // Return to enclosure
-        if (currentLocation != 0) {
-            int returnTime = BASE_MOVE_TIME;
+        if (remainingAnimals > 0) {
             System.out.printf("%d farmer=%d Returning to enclosure\n", tick, farmerId);
-            sleep(returnTime);
+            sleep(BASE_MOVE_TIME);
         }
     }
+    
 
-    // Method to prioritise which animals to stock first based on field status
-    private Map<String, Integer> prioritiseAnimalStocking(Map<String, Integer> animals) {
-        lock.lock();
-        try {
-            // Create a list of animal types sorted by priority
-            List<Map.Entry<String, Integer>> fieldPriorities = new ArrayList<>();
-            
-            // Check each field
-            for (Map.Entry<String, Field> entry : fields.entrySet()) {
-                String animalType = entry.getKey();
-                Field field = entry.getValue();
-                
-                // Only consider fields for which we have animals to stock
-                if (!animals.containsKey(animalType) || animals.get(animalType) <= 0) {
-                    continue;
-                }
-                
-                // Calculate priority based on:
-                // 1. Field emptiness (empty fields get higher priority)
-                // 2. Field capacity remaining (fields with more space get higher priority)
-                int priority = 0;
-                
-                // Empty field gets high priority
-                if (field.animals.isEmpty()) {
-                    priority += 100;
-                }
-                
-                // Add remaining capacity as priority
-                priority += (FIELD_CAPACITY - field.animals.size()) * 10;
-                
-                // Store the priority
-                fieldPriorities.add(new AbstractMap.SimpleEntry<>(animalType, priority));
+/**
+ * Prioritizes fields for stocking based on demand.
+ * Prioritization factors:
+ * 1️⃣ Fields with the most waiting buyers.
+ * 2️⃣ Fields that are empty.
+ * 3️⃣ Fields with more available space.
+ *
+ * @param animals Map of animals the farmer is carrying.
+ * @return A sorted map of fields prioritized for stocking.
+ */
+private Map<String, Integer> prioritizeFieldsForStocking(Map<String, Integer> animals) {
+    lock.lock();
+    try {
+        // Create a priority map for fields
+        Map<String, Integer> fieldPriorities = new HashMap<>();
+
+        for (Map.Entry<String, Field> entry : fields.entrySet()) {
+            String animalType = entry.getKey();
+            Field field = entry.getValue();
+
+            // Only consider fields for which we have animals to stock
+            if (!animals.containsKey(animalType) || animals.get(animalType) <= 0) {
+                continue;
             }
-            
-            // Sort by priority (descending)
-            fieldPriorities.sort((a, b) -> b.getValue() - a.getValue());
-            
-            // Create a new ordered map based on priority
-            Map<String, Integer> prioritisedAnimals = new LinkedHashMap<>();
-            for (Map.Entry<String, Integer> entry : fieldPriorities) {
-                String animalType = entry.getKey();
-                prioritisedAnimals.put(animalType, animals.get(animalType));
+
+            // Calculate priority
+            int priority = 0;
+
+            // 1️⃣ Highest priority if the field is empty
+            if (field.animals.isEmpty()) {
+                priority += 100;
             }
-            
-            // If any animals are left, add them at the end
-            for (Map.Entry<String, Integer> entry : animals.entrySet()) {
-                if (!prioritisedAnimals.containsKey(entry.getKey())) {
-                    prioritisedAnimals.put(entry.getKey(), entry.getValue());
-                }
-            }
-            
-            return prioritisedAnimals;
-        } finally {
-            lock.unlock();
+
+            // 2️⃣ More priority if buyers are waiting for this field
+            priority += field.getWaitingBuyers() * 50; // Each waiting buyer adds priority
+
+            // 3️⃣ Fields with more capacity left get higher priority
+            priority += (FIELD_CAPACITY - field.animals.size()) * 10;
+
+            // Store the priority score
+            fieldPriorities.put(animalType, priority);
         }
+
+        // Sort by priority in descending order
+        return fieldPriorities.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(LinkedHashMap::new, (m, e) -> m.put(e.getKey(), animals.get(e.getKey())), Map::putAll);
+
+    } finally {
+        lock.unlock();
     }
+}
+      
 
     private int getFieldIndex(String animalType) {
         String[] types = {"COW", "PIG", "SHEEP", "LLAMA", "CHICKEN"};
