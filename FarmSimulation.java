@@ -5,14 +5,14 @@ import java.util.*;
  * Creates and coordinates all simulation components.
  */
 public class FarmSimulation {
-    
+
     // config constants
     public static final int TICKS_PER_DAY = 1000;
     public static final int DEFAULT_TICK_TIME_MS = 100;
-    public static final int INITIAL_ANIMALS_PER_FIELD = 5;
+    public static final int INITIAL_ANIMALS_PER_FIELD = 0;
     public static final int DEFAULT_FIELD_CAPACITY = 100;
-    public static final int NUM_FARMERS = 3;
-    
+    public static final int NUM_FARMERS = 5;
+
     /**
      * Entry point for the simulation.
      * Creates and starts all simulation components.
@@ -23,7 +23,7 @@ public class FarmSimulation {
         int tickTimeMs = DEFAULT_TICK_TIME_MS;
         int numFarmers = NUM_FARMERS;
         int fieldCapacity = DEFAULT_FIELD_CAPACITY;
-        
+
         // Parse command line arguments if provided
         if (args.length > 0) {
             try {
@@ -31,7 +31,7 @@ public class FarmSimulation {
             } catch (NumberFormatException e) {
                 System.err.println("Invalid tick time provided. Using default: " + DEFAULT_TICK_TIME_MS + "ms");
             }
-            
+
             if (args.length > 1) {
                 try {
                     numFarmers = Integer.parseInt(args[1]);
@@ -39,7 +39,7 @@ public class FarmSimulation {
                     System.err.println("Invalid number of farmers provided. Using default: 1");
                 }
             }
-            
+
             if (args.length > 2) {
                 try {
                     fieldCapacity = Integer.parseInt(args[2]);
@@ -54,20 +54,20 @@ public class FarmSimulation {
         System.out.println("- Tick time (ms): " + tickTimeMs);
         System.out.println("- Number of farmers: " + numFarmers);
         System.out.println("- Field capacity: " + fieldCapacity);
-        
+
         // These objects are shared across multiple threads
         Farm farm = new Farm(fieldCapacity);
         TimeManager timeManager = new TimeManager(tickTimeMs);
-        
+
         // Start time manager thread
         Thread timeThread = new Thread(timeManager, "TimeManager");
         timeThread.start();
-        
+
         // Start animal delivery thread
         AnimalDelivery delivery = new AnimalDelivery(farm, timeManager);
         Thread deliveryThread = new Thread(delivery, "AnimalDelivery");
         deliveryThread.start();
-        
+
         // Start farmer threads
         List<Thread> farmerThreads = new ArrayList<>();
         for (int i = 0; i < numFarmers; i++) {
@@ -77,7 +77,7 @@ public class FarmSimulation {
             farmerThreads.add(farmerThread);
             farmerThread.start();
         }
-        
+
         // Start buyer threads (one per field type)
         List<Thread> buyerThreads = new ArrayList<>();
         for (AnimalType type : AnimalType.values()) {

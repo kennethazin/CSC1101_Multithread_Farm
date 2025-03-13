@@ -5,8 +5,6 @@ import java.util.Random;
  * This acts like a consumer in the consumer-producer pattern
  */
 public class Buyer implements Runnable {
-    private static final int BUY_INTERVAL_TICKS_AVG = 10;
-    private static final int COLLECTION_TIME = 1;
 
     private final Farm farm; // Shared resource
     private final TimeManager timeManager; // Shared resource
@@ -36,32 +34,34 @@ public class Buyer implements Runnable {
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                // Random wait time with average of BUY_INTERVAL_TICKS_AVG
                 // this is so that buyers don't all try to access resources simultaneously
-                long waitTime = Math.round(2.0 * random.nextDouble() * BUY_INTERVAL_TICKS_AVG);
-                timeManager.waitTicks(waitTime);
+                timeManager.waitTicks(10);
 
-                // Choose animal type to buy - each buyer specialises in one type
-                AnimalType typeToBuy = preferredType;
-                Field field = farm.getField(typeToBuy);
+                // 10% chance of buying an animal
+                if (Math.random() < 0.10) {
+                    AnimalType typeToBuy = preferredType;
+                    Field field = farm.getField(typeToBuy);
 
-                // Record start time for waiting
-                long startWaitTick = timeManager.getCurrentTick();
+                    // Record start time for waiting
+                    long startWaitTick = timeManager.getCurrentTick();
 
-                // Take animal from field
-                // Thread-safe due to synchronization in Field class
-                Animal animal = field.takeAnimal();
+                    // Take animal from field
+                    // Thread-safe due to synchronization in Field class
+                    Animal animal = field.takeAnimal();
 
-                // Calculate wait time
-                long waitedTicks = timeManager.getCurrentTick() - startWaitTick;
+                    if (animal != null) {
+                        // Calculate wait time
+                        long waitedTicks = timeManager.getCurrentTick() - startWaitTick;
 
-                // Wait for collection time to simulate processing
-                timeManager.waitTicks(COLLECTION_TIME);
+                        // Wait for collection time to simulate processing
+                        timeManager.waitTicks(1);
 
-                // Log the purchase
-                Logger.logBuyerCollection(timeManager.getCurrentTick(),
-                        Thread.currentThread().threadId(), id,
-                        typeToBuy.toString(), waitedTicks);
+                        // Log the purchase
+                        Logger.logBuyerCollection(timeManager.getCurrentTick(),
+                                Thread.currentThread().threadId(), id,
+                                typeToBuy.toString(), waitedTicks);
+                    }
+                }
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

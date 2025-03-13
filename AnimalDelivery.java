@@ -5,15 +5,19 @@ import java.util.*;
  * producer role in producer-consumer pattern.
  */
 public class AnimalDelivery implements Runnable {
-    private static final int DELIVERY_INTERVAL_TICKS = 100;
+
     private static final int ANIMALS_PER_DELIVERY = 10;
     
     private final Farm farm; // Shared resource across threads
     private final TimeManager timeManager; // Shared clock
     private final Random random = new Random();
+<<<<<<< Updated upstream
     @GuardedBy("this") 
     private long lastDeliveryTick = 0;
     
+=======
+
+>>>>>>> Stashed changes
     /**
      * Constructor for animal delivery service.
      * 
@@ -29,16 +33,23 @@ public class AnimalDelivery implements Runnable {
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
+<<<<<<< Updated upstream
                 long currentTick = timeManager.getCurrentTick();
                 
                 // Check if its time for a delivery (every 100 ticks)
                 // This is a non-blocking check to prevent busy waiting
                 if (currentTick - lastDeliveryTick >= DELIVERY_INTERVAL_TICKS) {
+=======
+
+                // each tick has a chance of 1% chance of triggering a delivery (on average,
+                // every 100 ticks)
+                if (Math.random() < 0.01) {
+>>>>>>> Stashed changes
                     deliverAnimals();
-                    lastDeliveryTick = currentTick;
                 }
                 
                 Thread.sleep(10);
+
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
