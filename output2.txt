@@ -1,399 +1,433 @@
-➜  CSC1101_Multithread_Farm git:(fix-delivery-timing) ✗ javac FarmSimulation.java
-➜  CSC1101_Multithread_Farm git:(fix-delivery-timing) ✗ java FarmSimulation      
+➜  CSC1101_Multithread_Farm git:(fix-delivery-timing) javac FarmSimulation.java
+➜  CSC1101_Multithread_Farm git:(fix-delivery-timing) java FarmSimulation      
 Farm Simulation Started with:
 - Tick time (ms): 50
 - Number of farmers: 3
 - Field capacity: 100
-4 25 buyer=1 collected_from_field=pigs waited_ticks=0
-6 29 buyer=5 collected_from_field=chickens waited_ticks=0
-11 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-14 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-14 26 buyer=2 collected_from_field=cows waited_ticks=0
-14 25 buyer=1 collected_from_field=pigs waited_ticks=0
-15 26 buyer=2 collected_from_field=cows waited_ticks=0
-17 28 buyer=4 collected_from_field=llamas waited_ticks=0
-21 29 buyer=5 collected_from_field=chickens waited_ticks=0
-23 25 buyer=1 collected_from_field=pigs waited_ticks=0
-24 25 buyer=1 collected_from_field=pigs waited_ticks=0
-25 25 buyer=1 collected_from_field=pigs waited_ticks=0
-26 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-26 26 buyer=2 collected_from_field=cows waited_ticks=0
-31 28 buyer=4 collected_from_field=llamas waited_ticks=0
-34 29 buyer=5 collected_from_field=chickens waited_ticks=0
-38 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-45 26 buyer=2 collected_from_field=cows waited_ticks=0
-46 26 buyer=2 collected_from_field=cows waited_ticks=0
-48 28 buyer=4 collected_from_field=llamas waited_ticks=0
-52 29 buyer=5 collected_from_field=chickens waited_ticks=0
-57 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-62 29 buyer=5 collected_from_field=chickens waited_ticks=0
-63 28 buyer=4 collected_from_field=llamas waited_ticks=0
+1 29 buyer=5 collected_from_field=chickens waited_ticks=0
+1 28 buyer=4 collected_from_field=llamas waited_ticks=0
+1 25 buyer=1 collected_from_field=pigs waited_ticks=0
+2 26 buyer=2 collected_from_field=cows waited_ticks=0
+3 25 buyer=1 collected_from_field=pigs waited_ticks=0
+10 26 buyer=2 collected_from_field=cows waited_ticks=0
+14 29 buyer=5 collected_from_field=chickens waited_ticks=0
+14 21 animal_delivery : pigs=1 chickens=4 cows=1 llamas=1 sheeps=3
+14 22 farmer=1 collected_animals waited_ticks=14: pigs=1 chickens=4 cows=1 llamas=1 sheeps=3
+18 26 buyer=2 collected_from_field=cows waited_ticks=0
+20 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+20 25 buyer=1 collected_from_field=pigs waited_ticks=0
+21 28 buyer=4 collected_from_field=llamas waited_ticks=0
+23 26 buyer=2 collected_from_field=cows waited_ticks=0
+27 26 buyer=2 collected_from_field=cows waited_ticks=0
+29 25 buyer=1 collected_from_field=pigs waited_ticks=0
+31 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+33 25 buyer=1 collected_from_field=pigs waited_ticks=0
+34 22 farmer=1 began_stocking_field : chickens=4
+37 28 buyer=4 collected_from_field=llamas waited_ticks=0
+38 22 farmer=1 finished_stocking_field : chickens=4
+39 29 buyer=5 collected_from_field=chickens waited_ticks=21
+45 29 buyer=5 collected_from_field=chickens waited_ticks=0
+54 28 buyer=4 collected_from_field=llamas waited_ticks=0
+54 22 farmer=1 began_stocking_field : sheeps=3
+57 22 farmer=1 finished_stocking_field : sheeps=3
+58 27 buyer=3 collected_from_field=sheeps waited_ticks=13
+63 29 buyer=5 collected_from_field=chickens waited_ticks=0
+66 29 buyer=5 collected_from_field=chickens waited_ticks=0
+70 22 farmer=1 began_stocking_field : pigs=1
+71 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+71 22 farmer=1 finished_stocking_field : pigs=1
+72 25 buyer=1 collected_from_field=pigs waited_ticks=19
+73 29 buyer=5 collected_from_field=chickens waited_ticks=0
 75 28 buyer=4 collected_from_field=llamas waited_ticks=0
-96 21 animal_delivery : pigs=1 chickens=5 cows=2 llamas=2
-96 22 farmer=1 collected_animals waited_ticks=96: pigs=1 chickens=5 cows=2 llamas=2
-100 21 animal_delivery : pigs=2 chickens=1 cows=3 llamas=1 sheeps=3
-100 23 farmer=2 collected_animals waited_ticks=100: pigs=2 chickens=1 cows=3 llamas=1 sheeps=3
-116 22 farmer=1 began_stocking_field : chickens=5
-119 21 animal_delivery : pigs=4 chickens=2 cows=1 llamas=2 sheeps=1
-119 24 farmer=3 collected_animals waited_ticks=19: pigs=4 chickens=2 cows=1 llamas=2 sheeps=1
-120 23 farmer=2 began_stocking_field : cows=3
-121 22 farmer=1 finished_stocking_field : chickens=5
-122 29 buyer=5 collected_from_field=chickens waited_ticks=49
-123 23 farmer=2 finished_stocking_field : cows=3
-124 26 buyer=2 collected_from_field=cows waited_ticks=67
-138 22 farmer=1 began_stocking_field : cows=2
-139 24 farmer=3 began_stocking_field : pigs=4
-140 22 farmer=1 finished_stocking_field : cows=2
-140 23 farmer=2 began_stocking_field : sheeps=3
-142 29 buyer=5 collected_from_field=chickens waited_ticks=0
-143 24 farmer=3 finished_stocking_field : pigs=4
-143 23 farmer=2 finished_stocking_field : sheeps=3
-143 26 buyer=2 collected_from_field=cows waited_ticks=0
-144 27 buyer=3 collected_from_field=sheeps waited_ticks=80
-144 25 buyer=1 collected_from_field=pigs waited_ticks=107
-147 26 buyer=2 collected_from_field=cows waited_ticks=0
-153 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-153 22 farmer=1 began_stocking_field : llamas=2
-155 22 farmer=1 finished_stocking_field : llamas=2
-156 28 buyer=4 collected_from_field=llamas waited_ticks=62
-157 23 farmer=2 began_stocking_field : pigs=2
-159 28 buyer=4 collected_from_field=llamas waited_ticks=0
-159 23 farmer=2 finished_stocking_field : pigs=2
-159 24 farmer=3 began_stocking_field : chickens=2
-160 25 buyer=1 collected_from_field=pigs waited_ticks=3
-161 24 farmer=3 finished_stocking_field : chickens=2
-162 29 buyer=5 collected_from_field=chickens waited_ticks=12
-167 26 buyer=2 collected_from_field=cows waited_ticks=0
-170 22 farmer=1 began_stocking_field : pigs=1
-171 22 farmer=1 finished_stocking_field : pigs=1
-172 25 buyer=1 collected_from_field=pigs waited_ticks=9
-173 23 farmer=2 began_stocking_field : chickens=1
-174 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-174 23 farmer=2 finished_stocking_field : chickens=1
-175 24 farmer=3 began_stocking_field : llamas=2
-175 29 buyer=5 collected_from_field=chickens waited_ticks=7
-176 25 buyer=1 collected_from_field=pigs waited_ticks=0
-177 24 farmer=3 finished_stocking_field : llamas=2
-178 28 buyer=4 collected_from_field=llamas waited_ticks=1
-178 26 buyer=2 collected_from_field=cows waited_ticks=0
-181 22 farmer=1 returned_to_enclosure
-183 25 buyer=1 collected_from_field=pigs waited_ticks=0
-188 23 farmer=2 began_stocking_field : llamas=1
-189 24 farmer=3 began_stocking_field : cows=1
-189 23 farmer=2 finished_stocking_field : llamas=1
-190 28 buyer=4 collected_from_field=llamas waited_ticks=3
-190 24 farmer=3 finished_stocking_field : cows=1
-191 29 buyer=5 collected_from_field=chickens waited_ticks=0
-191 26 buyer=2 collected_from_field=cows waited_ticks=9
-192 25 buyer=1 collected_from_field=pigs waited_ticks=0
-199 23 farmer=2 returned_to_enclosure
-200 21 animal_delivery : pigs=2 chickens=1 llamas=1 sheeps=6
-200 22 farmer=1 collected_animals waited_ticks=19: pigs=2 chickens=1 llamas=1 sheeps=6
-201 24 farmer=3 began_stocking_field : sheeps=1
-202 24 farmer=3 finished_stocking_field : sheeps=1
-203 27 buyer=3 collected_from_field=sheeps waited_ticks=23
-205 29 buyer=5 collected_from_field=chickens waited_ticks=0
-210 28 buyer=4 collected_from_field=llamas waited_ticks=0
-212 24 farmer=3 returned_to_enclosure
-212 25 buyer=1 collected_from_field=pigs waited_ticks=0
-215 29 buyer=5 collected_from_field=chickens waited_ticks=0
-222 22 farmer=1 began_stocking_field : sheeps=6
-227 29 buyer=5 collected_from_field=chickens waited_ticks=0
-228 22 farmer=1 finished_stocking_field : sheeps=6
-229 27 buyer=3 collected_from_field=sheeps waited_ticks=6
-229 21 animal_delivery : pigs=3 chickens=2 llamas=3 sheeps=2
-229 23 farmer=2 collected_animals waited_ticks=30: pigs=3 chickens=2 llamas=3 sheeps=2
-242 22 farmer=1 began_stocking_field : pigs=2
-244 22 farmer=1 finished_stocking_field : pigs=2
-245 25 buyer=1 collected_from_field=pigs waited_ticks=13
-249 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-256 22 farmer=1 began_stocking_field : chickens=1
-257 22 farmer=1 finished_stocking_field : chickens=1
-258 29 buyer=5 collected_from_field=chickens waited_ticks=27
-258 21 animal_delivery : pigs=1 chickens=5 llamas=1 sheeps=3
-258 24 farmer=3 collected_animals waited_ticks=46: pigs=1 chickens=5 llamas=1 sheeps=3
-259 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-263 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-264 23 farmer=2 began_stocking_field : pigs=3
-267 23 farmer=2 finished_stocking_field : pigs=3
-268 22 farmer=1 began_stocking_field : llamas=1
-268 25 buyer=1 collected_from_field=pigs waited_ticks=3
-269 22 farmer=1 finished_stocking_field : llamas=1
-270 28 buyer=4 collected_from_field=llamas waited_ticks=41
-270 25 buyer=1 collected_from_field=pigs waited_ticks=0
-271 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+76 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+83 22 farmer=1 began_stocking_field : cows=1
+83 29 buyer=5 collected_from_field=chickens waited_ticks=0
+84 29 buyer=5 collected_from_field=chickens waited_ticks=0
+84 22 farmer=1 finished_stocking_field : cows=1
+84 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+85 26 buyer=2 collected_from_field=cows waited_ticks=46
+91 21 animal_delivery : pigs=5 chickens=1 cows=2 llamas=1 sheeps=1
+91 23 farmer=2 collected_animals waited_ticks=91: pigs=5 chickens=1 cows=2 llamas=1 sheeps=1
+95 22 farmer=1 began_stocking_field : llamas=1
+96 22 farmer=1 finished_stocking_field : llamas=1
+97 28 buyer=4 collected_from_field=llamas waited_ticks=19
+100 21 animal_delivery : pigs=1 chickens=3 cows=1 sheeps=5
+100 24 farmer=3 collected_animals waited_ticks=86: pigs=1 chickens=3 cows=1 sheeps=5
+106 22 farmer=1 returned_to_enclosure
+111 23 farmer=2 began_stocking_field : pigs=5
+116 23 farmer=2 finished_stocking_field : pigs=5
+117 25 buyer=1 collected_from_field=pigs waited_ticks=43
+118 25 buyer=1 collected_from_field=pigs waited_ticks=0
+121 24 farmer=3 began_stocking_field : sheeps=5
+126 24 farmer=3 finished_stocking_field : sheeps=5
+127 27 buyer=3 collected_from_field=sheeps waited_ticks=24
+131 23 farmer=2 began_stocking_field : cows=2
+131 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+133 23 farmer=2 finished_stocking_field : cows=2
+134 26 buyer=2 collected_from_field=cows waited_ticks=30
+136 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+137 25 buyer=1 collected_from_field=pigs waited_ticks=0
+139 26 buyer=2 collected_from_field=cows waited_ticks=0
+141 24 farmer=3 began_stocking_field : chickens=3
+144 24 farmer=3 finished_stocking_field : chickens=3
+145 29 buyer=5 collected_from_field=chickens waited_ticks=49
+148 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+156 24 farmer=3 began_stocking_field : pigs=1
+157 23 farmer=2 began_stocking_field : chickens=1
+157 24 farmer=3 finished_stocking_field : pigs=1
+158 25 buyer=1 collected_from_field=pigs waited_ticks=5
+158 23 farmer=2 finished_stocking_field : chickens=1
+159 29 buyer=5 collected_from_field=chickens waited_ticks=0
+160 29 buyer=5 collected_from_field=chickens waited_ticks=0
+162 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+164 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+165 29 buyer=5 collected_from_field=chickens waited_ticks=0
+168 24 farmer=3 began_stocking_field : cows=1
+168 25 buyer=1 collected_from_field=pigs waited_ticks=0
+169 24 farmer=3 finished_stocking_field : cows=1
+170 26 buyer=2 collected_from_field=cows waited_ticks=12
+170 23 farmer=2 began_stocking_field : llamas=1
+171 23 farmer=2 finished_stocking_field : llamas=1
+172 28 buyer=4 collected_from_field=llamas waited_ticks=55
+179 24 farmer=3 returned_to_enclosure
+182 23 farmer=2 began_stocking_field : sheeps=1
+183 23 farmer=2 finished_stocking_field : sheeps=1
+184 27 buyer=3 collected_from_field=sheeps waited_ticks=10
+186 25 buyer=1 collected_from_field=pigs waited_ticks=0
+193 23 farmer=2 returned_to_enclosure
+199 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+200 21 animal_delivery : pigs=6 chickens=1 cows=3
+200 22 farmer=1 collected_animals waited_ticks=94: pigs=6 chickens=1 cows=3
+220 22 farmer=1 began_stocking_field : pigs=6
+226 22 farmer=1 finished_stocking_field : pigs=6
+227 25 buyer=1 collected_from_field=pigs waited_ticks=32
+230 21 animal_delivery : chickens=2 cows=2 llamas=3 sheeps=3
+230 23 farmer=2 collected_animals waited_ticks=37: chickens=2 cows=2 llamas=3 sheeps=3
+240 22 farmer=1 began_stocking_field : cows=3
+243 22 farmer=1 finished_stocking_field : cows=3
+244 26 buyer=2 collected_from_field=cows waited_ticks=60
+245 25 buyer=1 collected_from_field=pigs waited_ticks=0
+250 23 farmer=2 began_stocking_field : llamas=3
+251 25 buyer=1 collected_from_field=pigs waited_ticks=0
+253 23 farmer=2 finished_stocking_field : llamas=3
+253 25 buyer=1 collected_from_field=pigs waited_ticks=0
+254 28 buyer=4 collected_from_field=llamas waited_ticks=72
+254 22 farmer=1 began_stocking_field : chickens=1
+255 22 farmer=1 finished_stocking_field : chickens=1
+256 29 buyer=5 collected_from_field=chickens waited_ticks=75
+257 26 buyer=2 collected_from_field=cows waited_ticks=0
+265 22 farmer=1 returned_to_enclosure
+266 28 buyer=4 collected_from_field=llamas waited_ticks=0
+270 23 farmer=2 began_stocking_field : sheeps=3
+271 25 buyer=1 collected_from_field=pigs waited_ticks=0
+273 23 farmer=2 finished_stocking_field : sheeps=3
 274 25 buyer=1 collected_from_field=pigs waited_ticks=0
-277 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-278 24 farmer=3 began_stocking_field : chickens=5
-279 22 farmer=1 returned_to_enclosure
-279 22 farmer=1 started_break : rest=0
-283 24 farmer=3 finished_stocking_field : chickens=5
-284 29 buyer=5 collected_from_field=chickens waited_ticks=6
-286 25 buyer=1 collected_from_field=pigs waited_ticks=0
-286 23 farmer=2 began_stocking_field : llamas=3
-289 29 buyer=5 collected_from_field=chickens waited_ticks=0
-289 23 farmer=2 finished_stocking_field : llamas=3
-290 28 buyer=4 collected_from_field=llamas waited_ticks=6
-298 24 farmer=3 began_stocking_field : sheeps=3
-300 21 animal_delivery : pigs=2 cows=3 llamas=3 sheeps=2
-301 24 farmer=3 finished_stocking_field : sheeps=3
-302 27 buyer=3 collected_from_field=sheeps waited_ticks=11
-303 23 farmer=2 began_stocking_field : chickens=2
-305 23 farmer=2 finished_stocking_field : chickens=2
-306 29 buyer=5 collected_from_field=chickens waited_ticks=15
-308 28 buyer=4 collected_from_field=llamas waited_ticks=0
-313 24 farmer=3 began_stocking_field : pigs=1
-314 24 farmer=3 finished_stocking_field : pigs=1
-315 28 buyer=4 collected_from_field=llamas waited_ticks=0
-315 25 buyer=1 collected_from_field=pigs waited_ticks=20
-316 21 animal_delivery : pigs=3 chickens=2 cows=1 llamas=3 sheeps=1
-317 23 farmer=2 began_stocking_field : sheeps=2
-319 23 farmer=2 finished_stocking_field : sheeps=2
-319 29 buyer=5 collected_from_field=chickens waited_ticks=0
-320 27 buyer=3 collected_from_field=sheeps waited_ticks=8
-325 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-325 24 farmer=3 began_stocking_field : llamas=1
-326 24 farmer=3 finished_stocking_field : llamas=1
-327 28 buyer=4 collected_from_field=llamas waited_ticks=4
-329 23 farmer=2 returned_to_enclosure
-329 23 farmer=2 started_break : rest=0
-333 29 buyer=5 collected_from_field=chickens waited_ticks=0
-336 24 farmer=3 returned_to_enclosure
-336 24 farmer=3 started_break : rest=0
-336 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-340 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-353 29 buyer=5 collected_from_field=chickens waited_ticks=0
-370 29 buyer=5 collected_from_field=chickens waited_ticks=0
-374 21 animal_delivery : pigs=3 cows=3 llamas=2 sheeps=2
-401 21 animal_delivery : pigs=2 cows=4 llamas=3 sheeps=1
-429 22 farmer=1 finished_break : rest=0
-429 22 farmer=1 collected_animals waited_ticks=0: pigs=2 cows=3 llamas=3 sheeps=2
-449 22 farmer=1 began_stocking_field : cows=3
-452 22 farmer=1 finished_stocking_field : cows=3
-453 26 buyer=2 collected_from_field=cows waited_ticks=256
-469 22 farmer=1 began_stocking_field : llamas=3
-472 26 buyer=2 collected_from_field=cows waited_ticks=0
-472 22 farmer=1 finished_stocking_field : llamas=3
-473 28 buyer=4 collected_from_field=llamas waited_ticks=139
-476 26 buyer=2 collected_from_field=cows waited_ticks=0
-479 23 farmer=2 finished_break : rest=0
-479 23 farmer=2 collected_animals waited_ticks=0: pigs=3 chickens=2 cows=1 llamas=3 sheeps=1
-480 28 buyer=4 collected_from_field=llamas waited_ticks=0
-486 24 farmer=3 finished_break : rest=0
-486 22 farmer=1 began_stocking_field : pigs=2
-486 24 farmer=3 collected_animals waited_ticks=0: pigs=3 cows=3 llamas=2 sheeps=2
-488 22 farmer=1 finished_stocking_field : pigs=2
-489 25 buyer=1 collected_from_field=pigs waited_ticks=169
-492 28 buyer=4 collected_from_field=llamas waited_ticks=0
-500 22 farmer=1 began_stocking_field : sheeps=2
-501 21 animal_delivery : pigs=3 cows=2 llamas=2 sheeps=3
-502 22 farmer=1 finished_stocking_field : sheeps=2
-503 27 buyer=3 collected_from_field=sheeps waited_ticks=162
-505 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-508 24 farmer=3 began_stocking_field : pigs=3
-511 24 farmer=3 finished_stocking_field : pigs=3
-512 22 farmer=1 returned_to_enclosure
-512 22 farmer=1 collected_animals waited_ticks=0: pigs=2 cows=4 llamas=3 sheeps=1
-512 25 buyer=1 collected_from_field=pigs waited_ticks=9
-528 24 farmer=3 began_stocking_field : cows=3
-531 23 farmer=2 began_stocking_field : pigs=3
-531 24 farmer=3 finished_stocking_field : cows=3
-532 26 buyer=2 collected_from_field=cows waited_ticks=54
-534 23 farmer=2 finished_stocking_field : pigs=3
-535 25 buyer=1 collected_from_field=pigs waited_ticks=4
-545 24 farmer=3 began_stocking_field : llamas=2
-547 24 farmer=3 finished_stocking_field : llamas=2
-548 28 buyer=4 collected_from_field=llamas waited_ticks=50
-551 22 farmer=1 began_stocking_field : cows=4
-555 25 buyer=1 collected_from_field=pigs waited_ticks=0
-555 22 farmer=1 finished_stocking_field : cows=4
-556 26 buyer=2 collected_from_field=cows waited_ticks=22
-558 26 buyer=2 collected_from_field=cows waited_ticks=0
-559 24 farmer=3 began_stocking_field : sheeps=2
-561 24 farmer=3 finished_stocking_field : sheeps=2
-562 27 buyer=3 collected_from_field=sheeps waited_ticks=53
-564 23 farmer=2 began_stocking_field : llamas=3
-567 23 farmer=2 finished_stocking_field : llamas=3
-568 28 buyer=4 collected_from_field=llamas waited_ticks=1
-570 25 buyer=1 collected_from_field=pigs waited_ticks=0
-571 24 farmer=3 returned_to_enclosure
-571 24 farmer=3 collected_animals waited_ticks=0: pigs=3 cows=2 llamas=2 sheeps=3
-576 26 buyer=2 collected_from_field=cows waited_ticks=0
-578 26 buyer=2 collected_from_field=cows waited_ticks=0
-581 23 farmer=2 began_stocking_field : chickens=2
-583 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-583 23 farmer=2 finished_stocking_field : chickens=2
-583 22 farmer=1 began_stocking_field : llamas=3
-584 29 buyer=5 collected_from_field=chickens waited_ticks=202
-586 22 farmer=1 finished_stocking_field : llamas=3
-587 28 buyer=4 collected_from_field=llamas waited_ticks=7
-591 24 farmer=3 began_stocking_field : pigs=3
-593 28 buyer=4 collected_from_field=llamas waited_ticks=0
-594 24 farmer=3 finished_stocking_field : pigs=3
-595 25 buyer=1 collected_from_field=pigs waited_ticks=20
-595 23 farmer=2 began_stocking_field : cows=1
-596 23 farmer=2 finished_stocking_field : cows=1
-598 26 buyer=2 collected_from_field=cows waited_ticks=0
-602 21 animal_delivery : pigs=2 chickens=4 cows=3 llamas=1
-604 29 buyer=5 collected_from_field=chickens waited_ticks=0
-607 22 farmer=1 began_stocking_field : pigs=2
-607 28 buyer=4 collected_from_field=llamas waited_ticks=0
-609 22 farmer=1 finished_stocking_field : pigs=2
-610 26 buyer=2 collected_from_field=cows waited_ticks=0
-610 25 buyer=1 collected_from_field=pigs waited_ticks=3
-611 24 farmer=3 began_stocking_field : sheeps=3
-613 25 buyer=1 collected_from_field=pigs waited_ticks=0
-613 28 buyer=4 collected_from_field=llamas waited_ticks=0
-614 24 farmer=3 finished_stocking_field : sheeps=3
-615 27 buyer=3 collected_from_field=sheeps waited_ticks=18
-616 28 buyer=4 collected_from_field=llamas waited_ticks=0
-619 25 buyer=1 collected_from_field=pigs waited_ticks=0
-625 23 farmer=2 began_stocking_field : sheeps=1
-626 23 farmer=2 finished_stocking_field : sheeps=1
-627 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-628 25 buyer=1 collected_from_field=pigs waited_ticks=0
-628 24 farmer=3 began_stocking_field : cows=2
-629 28 buyer=4 collected_from_field=llamas waited_ticks=0
-630 24 farmer=3 finished_stocking_field : cows=2
-631 26 buyer=2 collected_from_field=cows waited_ticks=12
-635 25 buyer=1 collected_from_field=pigs waited_ticks=0
-636 23 farmer=2 returned_to_enclosure
-636 23 farmer=2 collected_animals waited_ticks=0: pigs=2 chickens=4 cows=3 llamas=1
-637 22 farmer=1 began_stocking_field : sheeps=1
-637 25 buyer=1 collected_from_field=pigs waited_ticks=0
-638 22 farmer=1 finished_stocking_field : sheeps=1
-642 24 farmer=3 began_stocking_field : llamas=2
-644 24 farmer=3 finished_stocking_field : llamas=2
-645 28 buyer=4 collected_from_field=llamas waited_ticks=6
-648 26 buyer=2 collected_from_field=cows waited_ticks=0
-648 22 farmer=1 returned_to_enclosure
-648 22 farmer=1 started_break : rest=0
-648 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-654 26 buyer=2 collected_from_field=cows waited_ticks=0
-654 24 farmer=3 returned_to_enclosure
-656 25 buyer=1 collected_from_field=pigs waited_ticks=0
-656 23 farmer=2 began_stocking_field : chickens=4
-660 23 farmer=2 finished_stocking_field : chickens=4
-661 29 buyer=5 collected_from_field=chickens waited_ticks=40
-664 28 buyer=4 collected_from_field=llamas waited_ticks=0
-668 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-670 29 buyer=5 collected_from_field=chickens waited_ticks=0
-676 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-676 23 farmer=2 began_stocking_field : cows=3
-679 23 farmer=2 finished_stocking_field : cows=3
-680 26 buyer=2 collected_from_field=cows waited_ticks=15
-681 29 buyer=5 collected_from_field=chickens waited_ticks=0
-690 29 buyer=5 collected_from_field=chickens waited_ticks=0
-692 23 farmer=2 began_stocking_field : pigs=2
-693 26 buyer=2 collected_from_field=cows waited_ticks=0
-694 23 farmer=2 finished_stocking_field : pigs=2
-695 25 buyer=1 collected_from_field=pigs waited_ticks=26
-702 21 animal_delivery : pigs=3 chickens=3 cows=1 llamas=1 sheeps=2
-702 24 farmer=3 collected_animals waited_ticks=48: pigs=3 chickens=3 cows=1 llamas=1 sheeps=2
-705 23 farmer=2 began_stocking_field : llamas=1
-706 23 farmer=2 finished_stocking_field : llamas=1
-707 28 buyer=4 collected_from_field=llamas waited_ticks=40
-712 26 buyer=2 collected_from_field=cows waited_ticks=0
-716 23 farmer=2 returned_to_enclosure
-722 24 farmer=3 began_stocking_field : pigs=3
-725 24 farmer=3 finished_stocking_field : pigs=3
-726 25 buyer=1 collected_from_field=pigs waited_ticks=17
-735 25 buyer=1 collected_from_field=pigs waited_ticks=0
-741 25 buyer=1 collected_from_field=pigs waited_ticks=0
-742 24 farmer=3 began_stocking_field : chickens=3
-745 24 farmer=3 finished_stocking_field : chickens=3
-746 29 buyer=5 collected_from_field=chickens waited_ticks=51
-753 29 buyer=5 collected_from_field=chickens waited_ticks=0
-758 25 buyer=1 collected_from_field=pigs waited_ticks=0
-759 24 farmer=3 began_stocking_field : sheeps=2
-761 24 farmer=3 finished_stocking_field : sheeps=2
-762 27 buyer=3 collected_from_field=sheeps waited_ticks=75
-765 29 buyer=5 collected_from_field=chickens waited_ticks=0
-773 24 farmer=3 began_stocking_field : cows=1
-774 24 farmer=3 finished_stocking_field : cows=1
-775 26 buyer=2 collected_from_field=cows waited_ticks=49
-778 21 animal_delivery : chickens=4 cows=1 llamas=3 sheeps=2
-778 23 farmer=2 collected_animals waited_ticks=62: chickens=4 cows=1 llamas=3 sheeps=2
-780 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-785 24 farmer=3 began_stocking_field : llamas=1
-786 24 farmer=3 finished_stocking_field : llamas=1
-787 28 buyer=4 collected_from_field=llamas waited_ticks=76
-796 24 farmer=3 returned_to_enclosure
-796 24 farmer=3 started_break : rest=0
-798 22 farmer=1 finished_break : rest=0
-798 23 farmer=2 began_stocking_field : chickens=4
-802 23 farmer=2 finished_stocking_field : chickens=4
-803 29 buyer=5 collected_from_field=chickens waited_ticks=29
-803 21 animal_delivery : chickens=4 cows=4 sheeps=2
-803 22 farmer=1 collected_animals waited_ticks=5: chickens=4 cows=4 sheeps=2
-818 23 farmer=2 began_stocking_field : llamas=3
-821 23 farmer=2 finished_stocking_field : llamas=3
-822 28 buyer=4 collected_from_field=llamas waited_ticks=24
-823 22 farmer=1 began_stocking_field : chickens=4
-825 28 buyer=4 collected_from_field=llamas waited_ticks=0
-827 22 farmer=1 finished_stocking_field : chickens=4
-828 29 buyer=5 collected_from_field=chickens waited_ticks=15
-830 28 buyer=4 collected_from_field=llamas waited_ticks=0
-834 23 farmer=2 began_stocking_field : sheeps=2
-836 23 farmer=2 finished_stocking_field : sheeps=2
-837 27 buyer=3 collected_from_field=sheeps waited_ticks=56
-837 29 buyer=5 collected_from_field=chickens waited_ticks=0
-843 22 farmer=1 began_stocking_field : cows=4
-845 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-847 22 farmer=1 finished_stocking_field : cows=4
-848 26 buyer=2 collected_from_field=cows waited_ticks=71
-852 29 buyer=5 collected_from_field=chickens waited_ticks=0
-858 23 farmer=2 began_stocking_field : cows=1
-859 22 farmer=1 began_stocking_field : sheeps=2
-859 23 farmer=2 finished_stocking_field : cows=1
-860 26 buyer=2 collected_from_field=cows waited_ticks=10
-861 22 farmer=1 finished_stocking_field : sheeps=2
-862 27 buyer=3 collected_from_field=sheeps waited_ticks=10
-863 29 buyer=5 collected_from_field=chickens waited_ticks=0
-869 23 farmer=2 returned_to_enclosure
-869 23 farmer=2 started_break : rest=0
-870 29 buyer=5 collected_from_field=chickens waited_ticks=0
-871 22 farmer=1 returned_to_enclosure
-873 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-875 26 buyer=2 collected_from_field=cows waited_ticks=0
-876 26 buyer=2 collected_from_field=cows waited_ticks=0
-885 29 buyer=5 collected_from_field=chickens waited_ticks=0
-890 26 buyer=2 collected_from_field=cows waited_ticks=0
-903 29 buyer=5 collected_from_field=chickens waited_ticks=0
-903 21 animal_delivery : pigs=1 chickens=3 cows=3 llamas=1 sheeps=2
-903 22 farmer=1 collected_animals waited_ticks=32: pigs=1 chickens=3 cows=3 llamas=1 sheeps=2
-923 22 farmer=1 began_stocking_field : chickens=3
-926 22 farmer=1 finished_stocking_field : chickens=3
-927 29 buyer=5 collected_from_field=chickens waited_ticks=15
-929 29 buyer=5 collected_from_field=chickens waited_ticks=0
-936 21 animal_delivery : pigs=3 chickens=1 cows=1 llamas=1 sheeps=4
-943 22 farmer=1 began_stocking_field : cows=3
-946 24 farmer=3 finished_break : rest=0
-946 22 farmer=1 finished_stocking_field : cows=3
-946 29 buyer=5 collected_from_field=chickens waited_ticks=0
-946 24 farmer=3 collected_animals waited_ticks=0: pigs=3 chickens=1 cows=1 llamas=1 sheeps=4
-947 26 buyer=2 collected_from_field=cows waited_ticks=53
-960 22 farmer=1 began_stocking_field : sheeps=2
-962 22 farmer=1 finished_stocking_field : sheeps=2
-963 27 buyer=3 collected_from_field=sheeps waited_ticks=87
-963 26 buyer=2 collected_from_field=cows waited_ticks=0
-974 22 farmer=1 began_stocking_field : pigs=1
-975 22 farmer=1 finished_stocking_field : pigs=1
-976 25 buyer=1 collected_from_field=pigs waited_ticks=209
-977 26 buyer=2 collected_from_field=cows waited_ticks=0
-982 24 farmer=3 began_stocking_field : sheeps=4
-986 22 farmer=1 began_stocking_field : llamas=1
-986 24 farmer=3 finished_stocking_field : sheeps=4
-987 27 buyer=3 collected_from_field=sheeps waited_ticks=19
-987 22 farmer=1 finished_stocking_field : llamas=1
-988 28 buyer=4 collected_from_field=llamas waited_ticks=157
-997 22 farmer=1 returned_to_enclosure
-997 21 animal_delivery : pigs=2 chickens=2 cows=2 llamas=4
-997 22 farmer=1 collected_animals waited_ticks=0: pigs=2 chickens=2 cows=2 llamas=4
-1002 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-1002 24 farmer=3 began_stocking_field : pigs=3
-1003 27 buyer=3 collected_from_field=sheeps waited_ticks=0
-1003 21 animal_delivery : chickens=3 cows=3 llamas=1 sheeps=3
-1005 24 farmer=3 finished_stocking_field : pigs=3
-1006 25 buyer=1 collected_from_field=pigs waited_ticks=27
-^C%          
+274 27 buyer=3 collected_from_field=sheeps waited_ticks=59
+278 26 buyer=2 collected_from_field=cows waited_ticks=0
+283 21 animal_delivery : pigs=3 llamas=3 sheeps=4
+283 24 farmer=3 collected_animals waited_ticks=104: pigs=3 llamas=3 sheeps=4
+287 23 farmer=2 began_stocking_field : chickens=2
+287 28 buyer=4 collected_from_field=llamas waited_ticks=0
+289 23 farmer=2 finished_stocking_field : chickens=2
+290 29 buyer=5 collected_from_field=chickens waited_ticks=28
+300 21 animal_delivery : pigs=4 chickens=2 cows=1 llamas=2 sheeps=1
+300 22 farmer=1 collected_animals waited_ticks=35: pigs=4 chickens=2 cows=1 llamas=2 sheeps=1
+301 23 farmer=2 began_stocking_field : cows=2
+303 23 farmer=2 finished_stocking_field : cows=2
+303 24 farmer=3 began_stocking_field : sheeps=4
+304 26 buyer=2 collected_from_field=cows waited_ticks=16
+305 29 buyer=5 collected_from_field=chickens waited_ticks=0
+307 24 farmer=3 finished_stocking_field : sheeps=4
+308 27 buyer=3 collected_from_field=sheeps waited_ticks=19
+312 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+313 23 farmer=2 returned_to_enclosure
+313 23 farmer=2 started_break : rest=0
+320 22 farmer=1 began_stocking_field : pigs=4
+324 22 farmer=1 finished_stocking_field : pigs=4
+324 26 buyer=2 collected_from_field=cows waited_ticks=0
+325 25 buyer=1 collected_from_field=pigs waited_ticks=37
+329 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+334 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+340 22 farmer=1 began_stocking_field : chickens=2
+340 24 farmer=3 began_stocking_field : pigs=3
+342 22 farmer=1 finished_stocking_field : chickens=2
+342 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+343 29 buyer=5 collected_from_field=chickens waited_ticks=25
+343 24 farmer=3 finished_stocking_field : pigs=3
+344 25 buyer=1 collected_from_field=pigs waited_ticks=16
+344 29 buyer=5 collected_from_field=chickens waited_ticks=0
+348 25 buyer=1 collected_from_field=pigs waited_ticks=0
+351 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+356 22 farmer=1 began_stocking_field : llamas=2
+358 22 farmer=1 finished_stocking_field : llamas=2
+359 28 buyer=4 collected_from_field=llamas waited_ticks=52
+365 25 buyer=1 collected_from_field=pigs waited_ticks=0
+370 22 farmer=1 began_stocking_field : cows=1
+371 24 farmer=3 began_stocking_field : llamas=3
+371 22 farmer=1 finished_stocking_field : cows=1
+372 26 buyer=2 collected_from_field=cows waited_ticks=45
+374 24 farmer=3 finished_stocking_field : llamas=3
+375 28 buyer=4 collected_from_field=llamas waited_ticks=3
+377 25 buyer=1 collected_from_field=pigs waited_ticks=0
+382 22 farmer=1 began_stocking_field : sheeps=1
+383 22 farmer=1 finished_stocking_field : sheeps=1
+384 24 farmer=3 returned_to_enclosure
+384 27 buyer=3 collected_from_field=sheeps waited_ticks=26
+384 24 farmer=3 started_break : rest=0
+388 28 buyer=4 collected_from_field=llamas waited_ticks=0
+392 28 buyer=4 collected_from_field=llamas waited_ticks=0
+393 22 farmer=1 returned_to_enclosure
+393 22 farmer=1 started_break : rest=0
+397 25 buyer=1 collected_from_field=pigs waited_ticks=0
+400 21 animal_delivery : pigs=5 chickens=1 sheeps=4
+401 25 buyer=1 collected_from_field=pigs waited_ticks=0
+411 28 buyer=4 collected_from_field=llamas waited_ticks=0
+463 23 farmer=2 finished_break : rest=0
+463 23 farmer=2 collected_animals waited_ticks=0: pigs=5 chickens=1 sheeps=4
+483 23 farmer=2 began_stocking_field : pigs=5
+488 23 farmer=2 finished_stocking_field : pigs=5
+489 25 buyer=1 collected_from_field=pigs waited_ticks=77
+492 25 buyer=1 collected_from_field=pigs waited_ticks=0
+496 21 animal_delivery : pigs=1 chickens=3 cows=2 llamas=2 sheeps=2
+500 21 animal_delivery : pigs=4 chickens=2 llamas=3 sheeps=1
+501 25 buyer=1 collected_from_field=pigs waited_ticks=0
+503 23 farmer=2 began_stocking_field : sheeps=4
+507 23 farmer=2 finished_stocking_field : sheeps=4
+508 27 buyer=3 collected_from_field=sheeps waited_ticks=114
+508 21 animal_delivery : pigs=1 chickens=2 cows=5 llamas=1 sheeps=1
+511 25 buyer=1 collected_from_field=pigs waited_ticks=0
+512 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+514 21 animal_delivery : chickens=3 cows=1 llamas=3 sheeps=3
+516 25 buyer=1 collected_from_field=pigs waited_ticks=0
+518 23 farmer=2 began_stocking_field : chickens=1
+519 23 farmer=2 finished_stocking_field : chickens=1
+520 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+520 29 buyer=5 collected_from_field=chickens waited_ticks=158
+529 23 farmer=2 returned_to_enclosure
+529 23 farmer=2 collected_animals waited_ticks=0: pigs=1 chickens=3 cows=2 llamas=2 sheeps=2
+533 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+534 24 farmer=3 finished_break : rest=0
+534 24 farmer=3 collected_animals waited_ticks=0: pigs=4 chickens=2 llamas=3 sheeps=1
+543 22 farmer=1 finished_break : rest=0
+543 22 farmer=1 collected_animals waited_ticks=0: pigs=1 chickens=2 cows=5 llamas=1 sheeps=1
+549 23 farmer=2 began_stocking_field : chickens=3
+552 23 farmer=2 finished_stocking_field : chickens=3
+553 29 buyer=5 collected_from_field=chickens waited_ticks=20
+554 24 farmer=3 began_stocking_field : pigs=4
+558 24 farmer=3 finished_stocking_field : pigs=4
+559 25 buyer=1 collected_from_field=pigs waited_ticks=35
+563 22 farmer=1 began_stocking_field : cows=5
+563 25 buyer=1 collected_from_field=pigs waited_ticks=0
+568 22 farmer=1 finished_stocking_field : cows=5
+569 26 buyer=2 collected_from_field=cows waited_ticks=188
+569 29 buyer=5 collected_from_field=chickens waited_ticks=0
+571 21 animal_delivery : pigs=2 chickens=3 cows=1 sheeps=4
+574 24 farmer=3 began_stocking_field : llamas=3
+577 24 farmer=3 finished_stocking_field : llamas=3
+578 28 buyer=4 collected_from_field=llamas waited_ticks=155
+578 25 buyer=1 collected_from_field=pigs waited_ticks=0
+583 22 farmer=1 began_stocking_field : chickens=2
+585 22 farmer=1 finished_stocking_field : chickens=2
+585 23 farmer=2 began_stocking_field : cows=2
+586 29 buyer=5 collected_from_field=chickens waited_ticks=8
+587 23 farmer=2 finished_stocking_field : cows=2
+588 26 buyer=2 collected_from_field=cows waited_ticks=9
+598 24 farmer=3 began_stocking_field : chickens=2
+598 22 farmer=1 began_stocking_field : pigs=1
+599 22 farmer=1 finished_stocking_field : pigs=1
+600 26 buyer=2 collected_from_field=cows waited_ticks=0
+600 24 farmer=3 finished_stocking_field : chickens=2
+600 25 buyer=1 collected_from_field=pigs waited_ticks=4
+600 21 animal_delivery : pigs=2 chickens=1 cows=2 llamas=3 sheeps=2
+602 23 farmer=2 began_stocking_field : llamas=2
+604 23 farmer=2 finished_stocking_field : llamas=2
+605 28 buyer=4 collected_from_field=llamas waited_ticks=9
+605 29 buyer=5 collected_from_field=chickens waited_ticks=0
+606 25 buyer=1 collected_from_field=pigs waited_ticks=0
+607 29 buyer=5 collected_from_field=chickens waited_ticks=0
+611 24 farmer=3 began_stocking_field : sheeps=1
+612 24 farmer=3 finished_stocking_field : sheeps=1
+613 27 buyer=3 collected_from_field=sheeps waited_ticks=67
+614 26 buyer=2 collected_from_field=cows waited_ticks=0
+616 22 farmer=1 began_stocking_field : llamas=1
+617 22 farmer=1 finished_stocking_field : llamas=1
+618 28 buyer=4 collected_from_field=llamas waited_ticks=3
+622 24 farmer=3 returned_to_enclosure
+622 24 farmer=3 collected_animals waited_ticks=0: chickens=3 cows=1 llamas=3 sheeps=3
+623 28 buyer=4 collected_from_field=llamas waited_ticks=0
+625 23 farmer=2 began_stocking_field : sheeps=2
+627 23 farmer=2 finished_stocking_field : sheeps=2
+630 26 buyer=2 collected_from_field=cows waited_ticks=0
+632 28 buyer=4 collected_from_field=llamas waited_ticks=0
+637 26 buyer=2 collected_from_field=cows waited_ticks=0
+638 22 farmer=1 began_stocking_field : sheeps=1
+638 23 farmer=2 began_stocking_field : pigs=1
+639 22 farmer=1 finished_stocking_field : sheeps=1
+639 23 farmer=2 finished_stocking_field : pigs=1
+640 27 buyer=3 collected_from_field=sheeps waited_ticks=11
+640 25 buyer=1 collected_from_field=pigs waited_ticks=33
+642 24 farmer=3 began_stocking_field : chickens=3
+645 24 farmer=3 finished_stocking_field : chickens=3
+646 29 buyer=5 collected_from_field=chickens waited_ticks=20
+649 22 farmer=1 returned_to_enclosure
+649 23 farmer=2 returned_to_enclosure
+649 22 farmer=1 collected_animals waited_ticks=0: pigs=2 chickens=3 cows=1 sheeps=4
+649 23 farmer=2 collected_animals waited_ticks=0: pigs=2 chickens=1 cows=2 llamas=3 sheeps=2
+650 26 buyer=2 collected_from_field=cows waited_ticks=0
+650 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+659 29 buyer=5 collected_from_field=chickens waited_ticks=0
+662 24 farmer=3 began_stocking_field : llamas=3
+665 24 farmer=3 finished_stocking_field : llamas=3
+666 28 buyer=4 collected_from_field=llamas waited_ticks=19
+669 22 farmer=1 began_stocking_field : sheeps=4
+673 22 farmer=1 finished_stocking_field : sheeps=4
+674 27 buyer=3 collected_from_field=sheeps waited_ticks=7
+685 23 farmer=2 began_stocking_field : llamas=3
+687 24 farmer=3 began_stocking_field : sheeps=3
+688 23 farmer=2 finished_stocking_field : llamas=3
+689 28 buyer=4 collected_from_field=llamas waited_ticks=4
+689 22 farmer=1 began_stocking_field : chickens=3
+690 24 farmer=3 finished_stocking_field : sheeps=3
+691 27 buyer=3 collected_from_field=sheeps waited_ticks=6
+692 22 farmer=1 finished_stocking_field : chickens=3
+692 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+693 29 buyer=5 collected_from_field=chickens waited_ticks=14
+698 28 buyer=4 collected_from_field=llamas waited_ticks=0
+700 21 animal_delivery : pigs=4 chickens=1 cows=3 llamas=2
+701 24 farmer=3 began_stocking_field : cows=1
+702 24 farmer=3 finished_stocking_field : cows=1
+702 29 buyer=5 collected_from_field=chickens waited_ticks=0
+703 26 buyer=2 collected_from_field=cows waited_ticks=52
+705 28 buyer=4 collected_from_field=llamas waited_ticks=0
+705 23 farmer=2 began_stocking_field : pigs=2
+707 23 farmer=2 finished_stocking_field : pigs=2
+708 25 buyer=1 collected_from_field=pigs waited_ticks=66
+709 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+712 24 farmer=3 returned_to_enclosure
+712 24 farmer=3 collected_animals waited_ticks=0: pigs=4 chickens=1 cows=3 llamas=2
+715 28 buyer=4 collected_from_field=llamas waited_ticks=0
+716 29 buyer=5 collected_from_field=chickens waited_ticks=0
+720 22 farmer=1 began_stocking_field : pigs=2
+722 23 farmer=2 began_stocking_field : cows=2
+722 22 farmer=1 finished_stocking_field : pigs=2
+723 29 buyer=5 collected_from_field=chickens waited_ticks=0
+723 25 buyer=1 collected_from_field=pigs waited_ticks=2
+724 23 farmer=2 finished_stocking_field : cows=2
+725 26 buyer=2 collected_from_field=cows waited_ticks=7
+725 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+730 21 animal_delivery : pigs=1 cows=4 llamas=2 sheeps=3
+732 28 buyer=4 collected_from_field=llamas waited_ticks=0
+735 22 farmer=1 began_stocking_field : cows=1
+736 22 farmer=1 finished_stocking_field : cows=1
+736 29 buyer=5 collected_from_field=chickens waited_ticks=0
+737 23 farmer=2 began_stocking_field : sheeps=2
+739 23 farmer=2 finished_stocking_field : sheeps=2
+740 27 buyer=3 collected_from_field=sheeps waited_ticks=13
+741 26 buyer=2 collected_from_field=cows waited_ticks=0
+742 24 farmer=3 began_stocking_field : pigs=4
+746 28 buyer=4 collected_from_field=llamas waited_ticks=0
+746 24 farmer=3 finished_stocking_field : pigs=4
+746 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+746 22 farmer=1 returned_to_enclosure
+746 22 farmer=1 collected_animals waited_ticks=0: pigs=1 cows=4 llamas=2 sheeps=3
+747 25 buyer=1 collected_from_field=pigs waited_ticks=10
+749 25 buyer=1 collected_from_field=pigs waited_ticks=0
+750 23 farmer=2 began_stocking_field : chickens=1
+751 23 farmer=2 finished_stocking_field : chickens=1
+752 29 buyer=5 collected_from_field=chickens waited_ticks=11
+759 29 buyer=5 collected_from_field=chickens waited_ticks=0
+761 25 buyer=1 collected_from_field=pigs waited_ticks=0
+761 23 farmer=2 returned_to_enclosure
+761 23 farmer=2 started_break : rest=0
+762 24 farmer=3 began_stocking_field : cows=3
+765 24 farmer=3 finished_stocking_field : cows=3
+766 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+766 26 buyer=2 collected_from_field=cows waited_ticks=18
+770 25 buyer=1 collected_from_field=pigs waited_ticks=0
+771 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+778 24 farmer=3 began_stocking_field : llamas=2
+780 24 farmer=3 finished_stocking_field : llamas=2
+781 28 buyer=4 collected_from_field=llamas waited_ticks=30
+782 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+785 22 farmer=1 began_stocking_field : cows=4
+789 22 farmer=1 finished_stocking_field : cows=4
+790 26 buyer=2 collected_from_field=cows waited_ticks=8
+791 28 buyer=4 collected_from_field=llamas waited_ticks=0
+791 25 buyer=1 collected_from_field=pigs waited_ticks=0
+791 24 farmer=3 began_stocking_field : chickens=1
+792 24 farmer=3 finished_stocking_field : chickens=1
+793 29 buyer=5 collected_from_field=chickens waited_ticks=24
+800 21 animal_delivery : pigs=3 chickens=2 cows=1 llamas=4
+802 24 farmer=3 returned_to_enclosure
+802 24 farmer=3 collected_animals waited_ticks=0: pigs=3 chickens=2 cows=1 llamas=4
+804 26 buyer=2 collected_from_field=cows waited_ticks=0
+805 22 farmer=1 began_stocking_field : sheeps=3
+808 22 farmer=1 finished_stocking_field : sheeps=3
+809 27 buyer=3 collected_from_field=sheeps waited_ticks=22
+810 25 buyer=1 collected_from_field=pigs waited_ticks=0
+811 26 buyer=2 collected_from_field=cows waited_ticks=0
+817 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+818 26 buyer=2 collected_from_field=cows waited_ticks=0
+822 24 farmer=3 began_stocking_field : llamas=4
+823 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+825 26 buyer=2 collected_from_field=cows waited_ticks=0
+826 24 farmer=3 finished_stocking_field : llamas=4
+827 28 buyer=4 collected_from_field=llamas waited_ticks=24
+833 26 buyer=2 collected_from_field=cows waited_ticks=0
+839 22 farmer=1 began_stocking_field : llamas=2
+841 22 farmer=1 finished_stocking_field : llamas=2
+842 28 buyer=4 collected_from_field=llamas waited_ticks=9
+842 24 farmer=3 began_stocking_field : pigs=3
+845 26 buyer=2 collected_from_field=cows waited_ticks=0
+845 24 farmer=3 finished_stocking_field : pigs=3
+846 25 buyer=1 collected_from_field=pigs waited_ticks=15
+850 28 buyer=4 collected_from_field=llamas waited_ticks=0
+852 28 buyer=4 collected_from_field=llamas waited_ticks=0
+856 22 farmer=1 began_stocking_field : pigs=1
+857 22 farmer=1 finished_stocking_field : pigs=1
+858 25 buyer=1 collected_from_field=pigs waited_ticks=8
+858 24 farmer=3 began_stocking_field : chickens=2
+860 24 farmer=3 finished_stocking_field : chickens=2
+861 29 buyer=5 collected_from_field=chickens waited_ticks=49
+862 25 buyer=1 collected_from_field=pigs waited_ticks=0
+864 29 buyer=5 collected_from_field=chickens waited_ticks=0
+867 22 farmer=1 returned_to_enclosure
+867 22 farmer=1 started_break : rest=0
+869 28 buyer=4 collected_from_field=llamas waited_ticks=0
+870 25 buyer=1 collected_from_field=pigs waited_ticks=0
+871 24 farmer=3 began_stocking_field : cows=1
+872 24 farmer=3 finished_stocking_field : cows=1
+873 26 buyer=2 collected_from_field=cows waited_ticks=24
+873 28 buyer=4 collected_from_field=llamas waited_ticks=0
+876 21 animal_delivery : pigs=1 chickens=2 cows=1 llamas=2 sheeps=4
+882 24 farmer=3 returned_to_enclosure
+882 24 farmer=3 started_break : rest=0
+900 21 animal_delivery : pigs=2 chickens=2 cows=3 llamas=1 sheeps=2
+911 23 farmer=2 finished_break : rest=0
+911 23 farmer=2 collected_animals waited_ticks=0: pigs=1 chickens=2 cows=1 llamas=2 sheeps=4
+931 23 farmer=2 began_stocking_field : sheeps=4
+935 23 farmer=2 finished_stocking_field : sheeps=4
+936 27 buyer=3 collected_from_field=sheeps waited_ticks=103
+951 23 farmer=2 began_stocking_field : chickens=2
+951 21 animal_delivery : pigs=4 chickens=2 cows=3 sheeps=1
+953 23 farmer=2 finished_stocking_field : chickens=2
+954 29 buyer=5 collected_from_field=chickens waited_ticks=71
+955 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+967 23 farmer=2 began_stocking_field : llamas=2
+969 23 farmer=2 finished_stocking_field : llamas=2
+970 28 buyer=4 collected_from_field=llamas waited_ticks=85
+973 29 buyer=5 collected_from_field=chickens waited_ticks=0
+975 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+978 28 buyer=4 collected_from_field=llamas waited_ticks=0
+981 23 farmer=2 began_stocking_field : pigs=1
+982 23 farmer=2 finished_stocking_field : pigs=1
+983 25 buyer=1 collected_from_field=pigs waited_ticks=100
+993 27 buyer=3 collected_from_field=sheeps waited_ticks=0
+993 23 farmer=2 began_stocking_field : cows=1
+994 23 farmer=2 finished_stocking_field : cows=1
+995 26 buyer=2 collected_from_field=cows waited_ticks=118
+1000 21 animal_delivery : pigs=1 chickens=3 cows=1 llamas=3 sheeps=2
+1004 23 farmer=2 returned_to_enclosure
+1004 23 farmer=2 collected_animals waited_ticks=0: pigs=2 chickens=2 cows=3 llamas=1 sheeps=2
+^C%                                                                                                                                                           
+➜  CSC1101_Multithread_Farm git:(fix-delivery-timing) 
