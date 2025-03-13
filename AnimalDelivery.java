@@ -5,6 +5,16 @@ import java.util.*;
  * producer role in producer-consumer pattern.
  */
 public class AnimalDelivery implements Runnable {
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+
+    private static final int ANIMALS_PER_DELIVERY = 10;
+>>>>>>> Stashed changes
+
+    private static final int ANIMALS_PER_DELIVERY = 10;
+>>>>>>> Stashed changes
 
     private static final int ANIMALS_PER_DELIVERY = 10;
     
@@ -12,10 +22,16 @@ public class AnimalDelivery implements Runnable {
     private final TimeManager timeManager; // Shared clock
     private final Random random = new Random();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     @GuardedBy("this") 
     private long lastDeliveryTick = 0;
     
 =======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
     /**
@@ -34,12 +50,30 @@ public class AnimalDelivery implements Runnable {
         try {
             while (!Thread.currentThread().isInterrupted()) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 long currentTick = timeManager.getCurrentTick();
                 
                 // Check if its time for a delivery (every 100 ticks)
                 // This is a non-blocking check to prevent busy waiting
                 if (currentTick - lastDeliveryTick >= DELIVERY_INTERVAL_TICKS) {
 =======
+=======
+=======
+
+                // each tick has a chance of 1% chance of triggering a delivery (on average,
+                // every 100 ticks)
+                if (Math.random() < 0.01) {
+                    deliverAnimals();
+                }
+>>>>>>> Stashed changes
+
+                // each tick has a chance of 1% chance of triggering a delivery (on average,
+                // every 100 ticks)
+                if (Math.random() < 0.01) {
+                    deliverAnimals();
+                }
+>>>>>>> Stashed changes
 
                 // each tick has a chance of 1% chance of triggering a delivery (on average,
                 // every 100 ticks)
