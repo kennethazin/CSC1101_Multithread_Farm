@@ -7,6 +7,6 @@ public enum AnimalType {
     
     @Override
     public String toString() {
-        return name().toLowerCase() + "s"; // Returns "pigs", "cows", etc.
+        return name().toLowerCase() + "s";
     }
 }
