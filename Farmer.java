@@ -4,7 +4,7 @@ import java.util.Map;
 public class Farmer implements Runnable {
     private final int id;
     private final Farm farm;
-    private int workTicks = 0;
+    private int workTicks = 10;
 
     public Farmer(int id, Farm farm) {
         this.id = id;
@@ -16,18 +16,22 @@ public class Farmer implements Runnable {
         while (true) {
             Map<String, Integer> animals = farm.takeFromEnclosure(id);
             if (!animals.isEmpty()) {
+                int totalAnimals = animals.values().stream().mapToInt(Integer::intValue).sum();
+
+                // ✅ Move time: 10 ticks + 1 per animal
+                int moveTime = 10 + totalAnimals;
+                workTicks += moveTime;
+
                 farm.stockAnimal(id, animals);
-                
-                // Increase work ticks based on movement and stocking
-                int totalAnimals = 0;
-                for (int count : animals.values()) {
-                    totalAnimals += count;
-                }
-                
-                // Each movement operation counts as work
-                workTicks += 10 + totalAnimals;
-                
-                // Check if farmer needs a break
+
+                // ✅ Stocking time: 1 tick per animal
+                workTicks += totalAnimals;
+
+                // ✅ Return time (if animals are left): 10 ticks + 1 per remaining animal
+                int returnTime = 10 + totalAnimals;
+                workTicks += returnTime;
+
+                // ✅ Check if farmer needs a break
                 if (workTicks >= farm.minBreakTicks) {
                     farm.farmerBreak(id);
                     workTicks = 0;

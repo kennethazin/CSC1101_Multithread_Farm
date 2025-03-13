@@ -18,7 +18,8 @@ public class Field {
     }
 
     public synchronized void removeWaitingBuyer() {
-        if (waitingBuyers > 0) waitingBuyers--;
+        if (waitingBuyers > 0)
+            waitingBuyers--;
     }
 
     public synchronized int getWaitingBuyers() {
