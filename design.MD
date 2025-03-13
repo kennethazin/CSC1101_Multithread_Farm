@@ -2,19 +2,39 @@
 
 ## 1. List of Working Functionality
 
-| Feature                 | Status | Minimal                           | Good                                     | Excellent | Description                                                   |
-| ----------------------- | ------ | --------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------- |
-| Animal Delivery         | ✅     | 10 animals delivered periodically | Random distribution across types         | -         | Delivery thread periodically adds animals to enclosure        |
-| Multiple Farmers        | ✅     | Single farmer                     | Configurable number (default: 3)         | -         | Multiple farmers collect and stock animals                    |
-| Multiple Fields         | ✅     | 5 different animal types          | Limited capacity (configurable)          | -         | Fields for each animal type with capacity limits              |
-| Buyers                  | ✅     | One buyer per field type          | Buyers take animals at varying intervals | -         | Buyers purchasing from their preferred fields                 |
-| Configurable Parameters | ✅     | Tick time in ms                   | Number of farmers, Field capacity        | -         | Command-line parameters to adjust simulation                  |
-| Farmer Breaks           | ✅     | -                                 | Farmers take breaks (200-300 ticks)      | -         | Farmers take periodic breaks to avoid resource monopolization |
-| Thread Safety           | ✅     | Basic synchronization             | Comprehensive thread safety              | -         | All shared resources protected through synchronization        |
-| Farmer Prioritization   | ✅     | -                                 | Stock fields with most animals first     | -         | Farmers prioritize fields with most animals                   |
-| Logging                 | ✅     | Basic logging                     | Detailed event tracking                  | -         | Thread-safe comprehensive logging system                      |
+| Feature                 | Status  | Minimal                           | Good                                     | Description                                                   |
+| ----------------------- | ------- | --------------------------------- | ---------------------------------------- | ------------------------------------------------------------- |
+| Animal Delivery         | Working | 10 animals delivered periodically | Random distribution across types         | Delivery thread periodically adds animals to enclosure        |
+| Multiple Farmers        | Working | Single farmer                     | Configurable number (default: 3)         | Multiple farmers collect and stock animals                    |
+| Multiple Fields         | Working | 5 different animal types          | Limited capacity (configurable)          | Fields for each animal type with capacity limits              |
+| Buyers                  | Working | One buyer per field type          | Buyers take animals at varying intervals | Buyers purchasing from their preferred fields                 |
+| Configurable Parameters | Working | Tick time in ms                   | Number of farmers, Field capacity        | Command-line parameters to adjust simulation                  |
+| Farmer Breaks           | Working | -                                 | Farmers take breaks (200-300 ticks)      | Farmers take periodic breaks to avoid resource monopolisation |
+| Thread Safety           | Working | Basic synchronization             | Comprehensive thread safety              | All shared resources protected through synchronisation        |
+| Farmer Prioritisation   | Working | N/A                               | Stock fields with most animals first     | Farmers prioritise fields with most animals                   |
+| Logging                 | Working | Basic logging                     | Detailed event tracking                  | Thread-safe comprehensive logging system                      |
 
 ## 2. Division of Work
+
+The work on this project was divided between two developers:
+
+| Component/Task          | Developer 1 | Developer 2 |
+| ----------------------- | ----------- | ----------- |
+| TimeManager             | ✓           |             |
+| Farm class              | ✓           |             |
+| Field class             | ✓           |             |
+| Animal class            |             | ✓           |
+| AnimalType enum         |             | ✓           |
+| Farmer implementation   |             | ✓           |
+| Buyer implementation    |             | ✓           |
+| Animal Delivery system  |             | ✓           |
+| Logger implementation   | ✓           |             |
+| Threading coordination  | ✓           |             |
+| Synchronization design  | ✓           |             |
+| Main simulation class   | ✓           | ✓           |
+| Command-line parameters | ✓           |             |
+| Documentation           |             | ✓           |
+| Testing                 | ✓           | ✓           |
 
 The architecture follows a clean separation of concerns principle, with each component responsible for a specific task:
 
