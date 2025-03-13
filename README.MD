@@ -53,8 +53,7 @@ The architecture follows a clean separation of concerns principle, with each com
 To compile the code on Linux/Ubuntu:
 
 ```bash
-cd /path/to/CSC1101_Multithread_Farm
-javac *.java
+javac FarmSimulation.java
 ```
 
 ### Execution
