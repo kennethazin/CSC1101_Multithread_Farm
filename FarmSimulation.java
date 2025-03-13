@@ -63,8 +63,8 @@ public class FarmSimulation {
         Thread timeThread = new Thread(timeManager, "TimeManager");
         timeThread.start();
         
-        // Start animal delivery thread
-        AnimalDelivery delivery = new AnimalDelivery(farm, timeManager);
+        // Start animal delivery thread - passing the tick time
+        AnimalDelivery delivery = new AnimalDelivery(farm, timeManager, tickTimeMs);
         Thread deliveryThread = new Thread(delivery, "AnimalDelivery");
         deliveryThread.start();
         

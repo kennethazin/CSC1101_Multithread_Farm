@@ -12,6 +12,7 @@ public class AnimalDelivery implements Runnable {
     private final Farm farm; // Shared resource across threads
     private final TimeManager timeManager; // Shared clock
     private final Random random = new Random();
+    private final int tickTimeMs; // Time to sleep between checks
     @GuardedBy("this") 
     private long lastDeliveryTick = 0;
     
@@ -20,10 +21,12 @@ public class AnimalDelivery implements Runnable {
      * 
      * @param farm The farm to deliver animals to (shared resource)
      * @param timeManager The shared time manager
+     * @param tickTimeMs The time to sleep between checks in milliseconds
      */
-    public AnimalDelivery(Farm farm, TimeManager timeManager) {
+    public AnimalDelivery(Farm farm, TimeManager timeManager, int tickTimeMs) {
         this.farm = farm;
         this.timeManager = timeManager;
+        this.tickTimeMs = tickTimeMs;
     }
     
     @Override
@@ -46,7 +49,7 @@ public class AnimalDelivery implements Runnable {
                     deliverAnimals();
                 }
                 
-                Thread.sleep(100);
+                Thread.sleep(tickTimeMs);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
