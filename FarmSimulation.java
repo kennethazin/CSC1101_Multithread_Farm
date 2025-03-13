@@ -4,11 +4,12 @@ public class FarmSimulation {
     public static final int TICKS_PER_DAY = 1000;
     public static final int DEFAULT_TICK_TIME_MS = 100; // Can be adjusted
     public static final int INITIAL_ANIMALS_PER_FIELD = 5;
+    public static final int DEFAULT_FIELD_CAPACITY = 100; // Added reasonable default
     
     public static void main(String[] args) {
         int tickTimeMs = DEFAULT_TICK_TIME_MS;
         int numFarmers = 3;  // For minimal version
-        int fieldCapacity = Integer.MAX_VALUE; // Unlimited for minimal version
+        int fieldCapacity = DEFAULT_FIELD_CAPACITY; // Changed from Integer.MAX_VALUE
         
         // Parse command line arguments if provided
         if (args.length > 0) {

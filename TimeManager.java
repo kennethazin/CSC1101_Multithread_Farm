@@ -1,7 +1,5 @@
-import java.util.concurrent.atomic.AtomicLong;
-
 public class TimeManager implements Runnable {
-    private final AtomicLong currentTick = new AtomicLong(0);
+    private long currentTick = 0;
     private final int tickTimeMs;
     private volatile boolean running = true;
     
@@ -14,7 +12,7 @@ public class TimeManager implements Runnable {
         while (running) {
             try {
                 Thread.sleep(tickTimeMs);
-                currentTick.incrementAndGet();
+                incrementTick();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 running = false;
@@ -22,19 +20,23 @@ public class TimeManager implements Runnable {
         }
     }
     
-    public long getCurrentTick() {
-        return currentTick.get();
+    private synchronized void incrementTick() {
+        currentTick++;
+        notifyAll(); // Notify threads waiting for ticks
     }
     
-    public void waitTicks(long ticks) throws InterruptedException {
+    public synchronized long getCurrentTick() {
+        return currentTick;
+    }
+    
+    public synchronized void waitTicks(long ticks) throws InterruptedException {
         if (ticks <= 0) return;
         
-        long startTick = currentTick.get();
-        long targetTick = startTick + ticks;
+        long targetTick = currentTick + ticks;
         
-        while (currentTick.get() < targetTick) {
+        while (currentTick < targetTick) {
             if (!running) throw new InterruptedException("Time manager stopped");
-            Thread.sleep(1);
+            wait();
         }
     }
     

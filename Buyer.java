@@ -26,19 +26,14 @@ public class Buyer implements Runnable {
                 long waitTime = Math.round(2.0 * random.nextDouble() * BUY_INTERVAL_TICKS_AVG);
                 timeManager.waitTicks(waitTime);
                 
-                // Choose animal type to buy (for now, just use preferred)
+                // Choose animal type to buy
                 AnimalType typeToBuy = preferredType;
                 Field field = farm.getField(typeToBuy);
                 
                 // Record start time for waiting
                 long startWaitTick = timeManager.getCurrentTick();
                 
-                // Wait until an animal is available and field is not being stocked
-                while (field.isEmpty() || field.isBeingStocked()) {
-                    Thread.sleep(10);
-                }
-                
-                // Take animal from field
+                // Take animal from field (method already has built-in wait)
                 Animal animal = field.takeAnimal();
                 
                 // Calculate wait time
@@ -47,10 +42,10 @@ public class Buyer implements Runnable {
                 // Wait for collection time
                 timeManager.waitTicks(COLLECTION_TIME);
                 
-                System.out.println(timeManager.getCurrentTick() + " " + 
-                                 Thread.currentThread().getId() + " buyer=" + id + 
-                                 " collected_from_field=" + typeToBuy.toString() + 
-                                 " waited_ticks=" + waitedTicks);
+                // Log the collection
+                Logger.logBuyerCollection(timeManager.getCurrentTick(), 
+                                        Thread.currentThread().getId(), id, 
+                                        typeToBuy.toString(), waitedTicks);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

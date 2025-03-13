@@ -1,11 +1,8 @@
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Farm {
-    private final Map<AnimalType, Field> fields = new ConcurrentHashMap<>();
-    private final BlockingQueue<Animal> enclosure = new LinkedBlockingQueue<>();
-    private final ReentrantLock enclosureLock = new ReentrantLock();
+    private final Map<AnimalType, Field> fields = new HashMap<>();
+    private final List<Animal> enclosure = new ArrayList<>();
     
     public Farm(int fieldCapacity) {
         // Initialize fields with initial animals
@@ -14,27 +11,25 @@ public class Farm {
         }
     }
     
-    public void addAnimalsToEnclosure(Map<AnimalType, Integer> animalCounts, long tick) {
-        enclosureLock.lock();
-        try {
-            // Log the deposit
-            Logger.logDelivery(tick, Thread.currentThread().getId(), animalCounts);
+    public synchronized void addAnimalsToEnclosure(Map<AnimalType, Integer> animalCounts, long tick) {
+        // Log the deposit
+        Logger.logDelivery(tick, Thread.currentThread().getId(), animalCounts);
+        
+        // Add the animals to the enclosure
+        for (Map.Entry<AnimalType, Integer> entry : animalCounts.entrySet()) {
+            AnimalType type = entry.getKey();
+            int count = entry.getValue();
             
-            // Add the animals to the enclosure
-            for (Map.Entry<AnimalType, Integer> entry : animalCounts.entrySet()) {
-                AnimalType type = entry.getKey();
-                int count = entry.getValue();
-                
-                for (int i = 0; i < count; i++) {
-                    enclosure.add(new Animal(type));
-                }
+            for (int i = 0; i < count; i++) {
+                enclosure.add(new Animal(type));
             }
-        } finally {
-            enclosureLock.unlock();
         }
+        
+        // Notify any waiting farmers that animals are available
+        notifyAll();
     }
     
-    public Map<AnimalType, List<Animal>> collectAnimalsFromEnclosure(int maxCount) {
+    public synchronized Map<AnimalType, List<Animal>> collectAnimalsFromEnclosure(int maxCount) {
         Map<AnimalType, List<Animal>> collected = new HashMap<>();
         for (AnimalType type : AnimalType.values()) {
             collected.put(type, new ArrayList<>());
@@ -42,17 +37,12 @@ public class Farm {
         
         int totalCollected = 0;
         
-        enclosureLock.lock();
-        try {
-            Iterator<Animal> it = enclosure.iterator();
-            while (it.hasNext() && totalCollected < maxCount) {
-                Animal animal = it.next();
-                collected.get(animal.getType()).add(animal);
-                it.remove();
-                totalCollected++;
-            }
-        } finally {
-            enclosureLock.unlock();
+        Iterator<Animal> it = enclosure.iterator();
+        while (it.hasNext() && totalCollected < maxCount) {
+            Animal animal = it.next();
+            collected.get(animal.getType()).add(animal);
+            it.remove();
+            totalCollected++;
         }
         
         return collected;
@@ -62,11 +52,18 @@ public class Farm {
         return fields.get(type);
     }
     
-    public boolean isEnclosureEmpty() {
+    public synchronized boolean isEnclosureEmpty() {
         return enclosure.isEmpty();
     }
     
-    public int getEnclosureSize() {
+    public synchronized int getEnclosureSize() {
         return enclosure.size();
+    }
+    
+    // Added waitForAnimals method for farmers to wait when enclosure is empty
+    public synchronized void waitForAnimals() throws InterruptedException {
+        while (enclosure.isEmpty()) {
+            wait();
+        }
     }
 }

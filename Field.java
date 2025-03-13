@@ -1,24 +1,21 @@
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Field {
     private final AnimalType animalType;
-    private final LinkedBlockingQueue<Animal> animals;
-    private final ReentrantLock stockingLock = new ReentrantLock();
+    private final List<Animal> animals;
     private final int capacity;
+    private boolean beingStocked = false;
     
     public Field(AnimalType animalType, int initialCount, int capacity) {
         this.animalType = animalType;
         this.capacity = capacity;
-        this.animals = new LinkedBlockingQueue<>(capacity);
+        // Don't pre-allocate the entire capacity which could cause OutOfMemoryError
+        this.animals = new ArrayList<>();
         
         // Add initial animals
         for (int i = 0; i < initialCount; i++) {
-            try {
-                animals.put(new Animal(animalType));
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            animals.add(new Animal(animalType));
         }
     }
     
@@ -26,42 +23,53 @@ public class Field {
         return animalType;
     }
     
-    public int getCurrentCount() {
+    public synchronized int getCurrentCount() {
         return animals.size();
     }
     
-    public boolean isFull() {
+    public synchronized boolean isFull() {
         return animals.size() >= capacity;
     }
     
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         return animals.isEmpty();
     }
     
-    public boolean lockForStocking() {
-        return stockingLock.tryLock();
+    public synchronized boolean lockForStocking() {
+        if (beingStocked) {
+            return false;
+        }
+        beingStocked = true;
+        return true;
     }
     
-    public void unlockStocking() {
-        stockingLock.unlock();
+    public synchronized void unlockStocking() {
+        beingStocked = false;
+        notifyAll(); // Notify buyers that might be waiting
     }
     
-    public boolean isBeingStocked() {
-        return stockingLock.isLocked();
+    public synchronized boolean isBeingStocked() {
+        return beingStocked;
     }
     
-    public Animal takeAnimal() throws InterruptedException {
-        return animals.take();
+    public synchronized Animal takeAnimal() throws InterruptedException {
+        while (isEmpty() || beingStocked) {
+            wait();
+        }
+        Animal animal = animals.remove(0);
+        return animal;
     }
     
-    public boolean addAnimal(Animal animal) {
+    public synchronized boolean addAnimal(Animal animal) {
         if (animal.getType() != this.animalType || isFull()) {
             return false;
         }
-        return animals.offer(animal);
+        animals.add(animal);
+        notifyAll(); // Notify waiting buyers
+        return true;
     }
     
-    public int getAvailableSpace() {
+    public synchronized int getAvailableSpace() {
         return capacity - animals.size();
     }
     

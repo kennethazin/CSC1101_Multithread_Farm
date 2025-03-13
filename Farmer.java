@@ -19,12 +19,8 @@ public class Farmer implements Runnable {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 // Wait for animals in the enclosure
-                while (farm.isEnclosureEmpty()) {
-                    Thread.sleep(100);
-                }
-                
-                // Record wait time
                 long startWaitTick = timeManager.getCurrentTick();
+                farm.waitForAnimals();
                 
                 // Collect animals from enclosure (up to MAX_ANIMALS)
                 Map<AnimalType, List<Animal>> collectedAnimals = farm.collectAnimalsFromEnclosure(MAX_ANIMALS);
@@ -94,15 +90,8 @@ public class Farmer implements Runnable {
             }
             
             try {
-                // Calculate travel time based on current location and remaining animals
-                int travelTime;
-                if (currentLocation.equals("enclosure")) {
-                    travelTime = TRAVEL_TIME + remainingAnimals;
-                } else {
-                    travelTime = TRAVEL_TIME + remainingAnimals;
-                }
-                
-                // Wait for travel time
+                // Calculate and wait for travel time
+                int travelTime = TRAVEL_TIME + remainingAnimals;
                 timeManager.waitTicks(travelTime);
                 
                 // Log beginning of stocking
