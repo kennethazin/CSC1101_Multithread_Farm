@@ -7,10 +7,12 @@ import java.util.*;
 public class AnimalDelivery implements Runnable {
     private static final int DELIVERY_INTERVAL_TICKS = 100;
     private static final int ANIMALS_PER_DELIVERY = 10;
+    private static final double RANDOM_DELIVERY_PROBABILITY = 0.01; // 1% chance per tick
     
     private final Farm farm; // Shared resource across threads
     private final TimeManager timeManager; // Shared clock
     private final Random random = new Random();
+    private final int tickTimeMs; // Time to sleep between checks
     @GuardedBy("this") 
     private long lastDeliveryTick = 0;
     
@@ -19,10 +21,12 @@ public class AnimalDelivery implements Runnable {
      * 
      * @param farm The farm to deliver animals to (shared resource)
      * @param timeManager The shared time manager
+     * @param tickTimeMs The time to sleep between checks in milliseconds
      */
-    public AnimalDelivery(Farm farm, TimeManager timeManager) {
+    public AnimalDelivery(Farm farm, TimeManager timeManager, int tickTimeMs) {
         this.farm = farm;
         this.timeManager = timeManager;
+        this.tickTimeMs = tickTimeMs;
     }
     
     @Override
@@ -31,14 +35,21 @@ public class AnimalDelivery implements Runnable {
             while (!Thread.currentThread().isInterrupted()) {
                 long currentTick = timeManager.getCurrentTick();
                 
-                // Check if its time for a delivery (every 100 ticks)
-                // This is a non-blocking check to prevent busy waiting
-                if (currentTick - lastDeliveryTick >= DELIVERY_INTERVAL_TICKS) {
-                    deliverAnimals();
-                    lastDeliveryTick = currentTick;
+                // Two independent delivery mechanisms:
+                // 1. Check if it's been at least DELIVERY_INTERVAL_TICKS since last scheduled delivery
+                synchronized (this) {
+                    if (currentTick - lastDeliveryTick >= DELIVERY_INTERVAL_TICKS) {
+                        deliverAnimals();
+                        lastDeliveryTick = currentTick;
+                    }
                 }
                 
-                Thread.sleep(10);
+                // 2. Random chance (1%) for additional deliveries on any tick
+                if (random.nextDouble() < RANDOM_DELIVERY_PROBABILITY) {
+                    deliverAnimals();
+                }
+                
+                Thread.sleep(tickTimeMs);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
