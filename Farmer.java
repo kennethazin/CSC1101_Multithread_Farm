@@ -166,7 +166,6 @@ public class Farmer implements Runnable {
                 // Stock the field
                 int stockedCount = 0;
                 for (Animal animal : animals) {
-                    // Thread-safe operation due to the synchronisation in Field
                     if (field.addAnimal(animal)) {
                         stockedCount++;
                         // Simulate time to stock each animal
